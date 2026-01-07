@@ -21,13 +21,15 @@ You're ready for a little more sophistication.
 > [!WARNING]
 > You may _not_ use generative AI on the writeup.
 
-## The Deadline
+## The Deadline (submissions are via pull requests to the relevant directory)
 
 ### Rough Draft (primary assignment and writeup, no extensions)
+
 > [!IMPORTANT]
 > Beginning of class on ???
 
 ### Final Submission
+
 > [!IMPORTANT]
 > Beginning of class on ???
 
@@ -64,6 +66,7 @@ Simpson's rule reduces error by cleverly weighting the contributions of points t
 Without a huge amount of justification, it seems reasonable that you can get a better approximation by adjusting your sample points themselves.
 
 #### Standardized limits of integration
+
 It turns out it's a bit easier to only consider integrals in the interval $`[-1,1]`$ 
 
 > [!NOTE]
@@ -127,6 +130,7 @@ roots, weights = sp.special.roots_legendre(N)
 Conveniently, scipy's roots_legendre function returns the weights too.
 
 ### Extensions (a.k.a. challenge questions)
+
 > [!CAUTION]
 > Do not implement or explore these until you have the base program and report put together.
 
@@ -146,6 +150,7 @@ Gaussian quadrature points are not evaluated at the limits of integration.
 
 
 ### Extension 2: Challenge Boogaloo
+
 This is a numeric analysis/theory question, not a scientific programming task.
 Why are the optimal points for an $N$ order Gaussian quadrature the zeros of $P_N$?
 
@@ -159,12 +164,15 @@ Why are the optimal points for an $N$ order Gaussian quadrature the zeros of $P_
 ### Address the following questions in your writeup
 
 ### Attribution
+
 What resources did you use on this assignment? People, websites, books, etc.
 
 ### Timekeeping
+
 How long did you spend on this assignment? If you didn't keep an accurate log, an estimate is fine.
 
 ### Languages, Libraries, Lessons Learned
+
  1. What language did you use for your submission? Is it the same one you started using? If not, why'd you change?
  2. What libraries did you use in your submission? Were any of them remarkable? Great to use, super annoying to use, etc?
 
@@ -185,10 +193,12 @@ Consider using timing information as you evaluate your implementation of these d
 > Make sure you run spell check on your text file.
 
 ## Code directory
+
 A directory titled "code" that contains your program files and makefile (if used), or a ReadMe.md file that gives sufficiently detailed instructions for me to build and execute your code.
 If you implement one or both extensions, make sure it's easy to run the base case as well as the extension you wrote!
 
 ## Writeup directory
+
 A directory titled "writeup" containing 
  1. your writeup file: a well-structured markdown file OR a LaTeX document (and its resulting PDF)
  3. Figures (static, PNG or PDF)
