@@ -2,10 +2,14 @@
 #Author: Cricket Bergner
 #Date: 02/10/2026
 #########################################################################
-
-# Adaptive Integration
-
+print("#########################################################################")
+print("")
+print("")
+print("Adaptive Integration")
+print("")
+print("")
 #########################################################################
+print("#########################################################################")
 
 # import libraries
 import numpy as np
@@ -41,41 +45,74 @@ print("The correct output to the integral is ", ans, ".")
 print("It took 8192 intervals for the trapezoid rule to approximate this with an accuracy of 10^-6.")
 
 #########################################################################
+print("#########################################################################")
+print("")
+print("")
+print("Gaussian Quadrature")
+print("")
+print("")
 
-# Gaussian Quadrature
+#map the integral from [0,2] to [-1,1] using the u-substitution given
+# use the scipy function to get sample pts and weights
+# implement the gaussian quadrature formula
+# test it on the integral
+# verfiy that the u function works
+# calculate du
 
 #########################################################################
+print("#########################################################################")
 
 
 
 
 
 #########################################################################
-
-# Subplots
-
-#########################################################################
+print("#########################################################################")
+print("")
+print("")
+print("Subplots")
+print("")
+print("")
+print("#########################################################################")
 
 # import libraries
 import scipy as sp
-import matplotlib as plt
+import matplotlib.pyplot as plt
+from scipy.special import legendre as l
 
 # initialize variables
-roots, weights = sp.special.roots_legendre(N)
-t2 = pt(["", "p1", "p2", "p3", "p4"]) # initializing table with headers
+x = np.linspace(-1, 1, 400)
 
-for i in range(4): # rows
-    for j in range(4): # columns
-       
+# create figure with subplots
+f, a = plt.subplots(4, 4, figsize=(16, 16))
+f.suptitle('Legendre Polynomials', fontsize=16)
 
+for i in range(4):  # rows
+    for j in range(4):  # columns
+        ax = a[i, j]
+        
+        # load Legendre polynomials and their evaluations at x
+        # source: https://python4physics.in/program/python/program.php?menu_id=14&submenu_id=2#gsc.tab=0
+        Pi = l(i+1)
+        Pj = l(j+1)
+        Piv = Pi(x) 
+        Pjv = Pj(x)
+      
+        # make the plots
+        ax.plot(x, Piv, label=f'P_{i+1}(x)', color='goldenrod', linewidth=1.75)
+        ax.plot(x, Pjv, label=f'P_{j+1}(x)', color='purple', linewidth=1.5)
+        ax.plot(x, Piv*Pjv, label='Product', color='#78C3F5', linewidth=2)
+        
+        #label everything for coherency
+        ax.set_xlabel('x', fontsize=8)
+        ax.set_ylabel('P_n(x)', fontsize=8)
+        ax.set_title(f'P_{i+1}, P_{j+1}, P_{i+1}·P_{j+1}', fontsize=10)
+        ax.legend(fontsize=7)
+        ax.grid(True, alpha=0.3)
+        ax.tick_params(labelsize=7)
 
-       plt.subplot(4, 4, j+1)
+plt.tight_layout()
+plt.show()
 
-    plt.subplot(4, 4, i+1)
-
-
-
-#
-#
-#
-
+#########################################################################
+print("#########################################################################")
