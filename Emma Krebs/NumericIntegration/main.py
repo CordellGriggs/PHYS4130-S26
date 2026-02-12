@@ -5,9 +5,11 @@
     Project description: This project has the student use their knowledge of numerical integration methods
 '''
 
-import numpy
+import numpy as np
+from scipy.special import legendre
 import pandas as pd
 import math
+import matplotlib.pyplot as plt
 
 # ------------------ Function Definitions ------------------
 
@@ -74,13 +76,56 @@ def given_function(x):
     return math.sin(math.sqrt(100*x)) ** 2
 
 
+'''
+    Definition: u (gaussian_quadrature)
+    Parameters: x (Value it needs to convert), a (start), and b (end)
+    Description: Maps a, b to [-1, 1] interval. By doing so, you can convert an x in that range.
+'''
+def u(x, a, b):
+    return (2*x - a - b) / (b - a)
+
+
+'''
+    Definition: du (gaussian_quadrature)
+    Parameters: a (start), and b (end)
+    Description: Replaces du so any integral can use dx as the respective variable.
+'''
+def du(a, b):
+    return 2 / (b - a)
+
 # ------------------ Main Body ------------------
 
 # For trapezoid section
 results = approximator(given_function, 0, 2, 1.00570254283, 0.00005)
 # Create table
+print()
 pd.set_option('display.precision', 10)
-df = pd.DataFrame(results, columns=['Number of intervals', 'Summation of Integral', 'Error from true answer(%)'])
+df = pd.DataFrame(results, columns=['Subintervals', 'Summation', 'Error(%)'])
 print(df)
 
-# For Gaussian 
+# For Gaussian Quadrature (Test)
+print("\nTest for Gaussian Quadrature with a = 1, b = 7, and x = 5")
+print("The starting point 1 becomes: ", u(1, 1, 7))
+print("The ending point 7 becomes: ", u(7, 1, 7))
+print("The test variable 5 becomes: ", u(5, 1, 7))
+print()
+
+# For Legendre Polynomials
+x = np.linspace(-1, 1, 200) 
+fig, axes = plt.subplots(4, 4, figsize=(10,10)) # Our subplot grid
+
+for i in range(4):
+    y_1 = legendre(i+1)(x)
+
+    for j in range(4):
+        y_2 = legendre(j+1)(x)
+        axes[i, j].plot(x, y_1)
+        axes[i, j].plot(x, y_2)
+        title = "P" + str(i) +", P" + str(j)+", P" + str(i) + "*P" + str(j)
+        axes[i, j].set_title(title, size=8)
+        # axes[i, j].plot(x, y_3)
+
+plt.tight_layout()
+plt.show()
+
+
