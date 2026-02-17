@@ -17,9 +17,9 @@ import matplotlib.pyplot as plt
 '''
     Definition: trapezoid_function
     Parameters: func (Given function), a (Starting point of subdivision), b (Ending point of subdivision),
-        and n (the number of subintevrals).
-    Description: Takes in a function, a starting point, and an ending point and goes through an increasing
-        number of subintervals to come to the closest *********
+        and n (the number of subintervals).
+    Description: This function loops over a range of n subintervals and continously sums using the trapezoid 
+        equation and our given parameters to get the approximate answer of the integral for n subintervals.
 '''
 def trapezoid_function(func, a, b, n):
 
@@ -169,3 +169,9 @@ for N in range(4):
 
 dg = pd.DataFrame({'P(x)': values_array,'Roots': roots_array, 'Weights': weights_array})
 print(dg)
+
+# ------------------ Extension ------------------
+
+# This section is for extension question 1
+
+
