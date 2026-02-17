@@ -221,7 +221,7 @@ It is immediatley obvious that at just 14 subintervals this algorithm achieves 1
 
 One thing that distinguishes Gaussian Quadrature from other integration algorithms is that it never evaluates at the limits of integration. This makes it worthwhile to experiment with a function that has a singularity at one of its limits of integration. So, consider
 ```math
-\int_{0}^{2}\frac{y^2}{\sqrt{2-y}} \dy
+\int_{0}^{2}\frac{y^2}{\sqrt{2-y}} \ dy
 ```
 The integrand diverges at y=2, howevever, the integral is know to converge to 
 ```math
