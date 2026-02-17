@@ -99,7 +99,7 @@ dx = \frac{b-a}{2}\ du.
 
 ```math
 \boxed{
-\int_a^b f(x)\dx=
+\int_a^b f(x) dx=
 \int_{-1}^{1}
 f\!\left(
 \frac{b-a}{2}u + \frac{a+b}{2}
