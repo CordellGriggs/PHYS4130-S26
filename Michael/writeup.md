@@ -4,14 +4,13 @@
 
 ## The Trapezoidal Rule
 
-
-From the pervious jupyter notebooks, we know that the trapezoidal rule is a numerical scheme for evaluating integrals. It works by locally approximating the function as a line and thus the area underneath it as a trapezoid. An iinteresting thing to examine for a numerical method is the rate at which it converges to the true value. So, we want to integrate the function
+From the pervious jupyter notebooks, we know that the trapezoidal rule is a numerical method for evaluating integrals. It works by locally approximating the function as a line and thus the area underneath it as a trapezoid. An interesting thing to examine for a numerical method is the rate at which it converges to the true value. So, we want to integrate the function
 
 ```math
 f(x) = \sin(\sqrt{100 x})
 ```
 
-and integrate over the region [0,2] using the trapezoid rule for a sequence of different numbers of subintervals. The following lines of code wille achieve just that.
+over the region [0,2] using the trapezoid rule for a sequence of different numbers of subintervals. The following function will achieve that.
 
 ```python
 #The integrand
@@ -38,9 +37,9 @@ def Table(g,a,b,TrueVal, alg, points):
     return
 ```
 
-The first two functions are just the integrand and the trapezoid rule. The last function, called 'Table', is used here and later in the project to output a formatted table of the the number of intervals, the approximated integral, and the error in that approximation. It is written to take the following arguments (in order): the integrand, the lower and upper limit of integration, the true value, the integration algorithm, and lastly a list of subinterval totals to test.
+The first two functions are just the integrand and the trapezoid rule. The last function, called 'Table', will be used here and later in the project to output a formatted table of the the number of intervals, the approximated integral, and the error in that approximation. It is written to take the following arguments in order: the integrand, the lower and upper limit of integration, the true value, the integration algorithm, and lastly a list of subinterval totals to test.
 
-When used with the integrand above on the interval [0.2] and having the subintervals grow expoenentially, we get the following output.
+When used with the integrand above on the interval [0.2] and having the subintervals grow expoenentially, we get the following
 
     Trapezoid Rule
 
@@ -60,19 +59,19 @@ When used with the integrand above on the interval [0.2] and having the subinter
          4096        1.0057005553    0.00000198749713442581
          8192        1.0057020459    0.00000049687722025737
 
-We see that, roughly speaking, to gain an extra decimal of accuracy we have to double the number intervals each time. At somepoint between 4096 and 8192 we achieved 10 decimal precision. This does not take terribly long to do computationally, but there are other algorithms that can handle this problem with much fewer intervals. We will consider such an algorithm next.
+We see that, roughly speaking, to gain an extra decimal of accuracy we have to double the number intervals each time. At some point between 4096 and 8192 we achieved 10 decimal precision. This does not take terribly long to do computationally, but there are other algorithms that can handle this problem with much fewer intervals. We will consider such an algorithm next.
 
 ## Gaussian Quadrature
 
 ### Derivation
 
-The trapezoidal rule essentially uses a linear approximation of function on a subinterval to compute area. Similarly, Simpson's rule instead uses quadratics which allows for a more accurate approximation and thus faster convergence. Then, we will consider a  method called Gaussian Quadrature. The tools used for the approximations in this method are the Legendre polynomials.
+The trapezoidal rule is based on linear approximations of function on a subinterval to compute area. Similarly, Simpson's rule instead uses quadratics which allows for a more accurate approximation and thus faster convergence. Then, we will consider a  method called Gaussian Quadrature. The tools used for the approximations in this method are the Legendre polynomials.
 
 As a refresher, the Legendre polynomials are a set of polynomials that are orthogonal on the interval [-1,1]. The first four are plotted below, as well as their products. 
 
-![Legendre Polynomials](legendre.png)
+![Legendre Polynomials](legendre.png "Plots of the first four Legendre Polynomials.")
 
-The plots above visually demonstrate the orthogonality condition for the Legendre polynomials.
+These plots visually demonstrate the orthogonality condition for the Legendre polynomials.
 
 ```math
 \int_{-1}^{1} P_n(x)P_m(x) dx = \frac{2}{2n+1}\ \delta_{nm}
@@ -131,6 +130,7 @@ x_i \text{ are the sampling points.}
 \\
 L_i(x_j) = \delta_{ij}
 ```
+For a polynomial of degree n-1 and n sample points, this representation with lagrange polynomials is exact.
 
 Now, we can start putting together the algorithm. We want to approximate the integral using a weighted sum of the function at n quadrature points in the interval [-1,1].
 ```math
@@ -152,7 +152,7 @@ We will set that aside for now and consider our approximation. We want our weigh
 ```math
 \int_{-1}^{1} S(x) dx = \sum_{i=1}^{n} w_i S(x_i) = \sum_{i=1}^{n} w_i (Q(x_i)P_n(x_i) + R(x_i))
 ```
-Then, we choose our quadrature points to be the n distinct roots of Pn. This reduces our equation to
+Then, we choose our quadrature points to be the n distinct roots of Pn which all lie in [-1,1]. This reduces our equation to
 ```math
 \int_{-1}^{1} S(x) dx =  \sum_{i=1}^{n} w_i  R(x_i)
 ```
@@ -160,7 +160,7 @@ And we now equate our two forms for the integral to yield
 ```math
 \int_{-1}^{1} R(x) dx =  \sum_{i=1}^{n} w_i  R(x_i)
 ```
-The important observation at this step is that we have converted the problem from inegrating a polynomial of degree up to 2n-1 with n quadrature points into an integral of an at most degree n-1 polynomial and n quadrature points. This can be handled precisely with lagrange quadrature. We continue by expressing R in terms of lagrange polynomials. 
+The important observation at this step is that we have converted the problem from inegrating a polynomial of degree up to 2n-1 with n quadrature points into an integral of an at most degree n-1 polynomial and n quadrature points. R therefore has an exact representation in terms of the lagrange polynomials with our n sample points.
 
 By construction
 ```math
