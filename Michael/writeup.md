@@ -134,7 +134,7 @@ L_i(x_j) = \delta_{ij}
 
 Now, we can start putting together the algorithm. We want to approximate the integral using a weighted sum of the function at n quadrature points in the interval [-1,1].
 ```math
-\int_{-1}^{1} f(x) \ dx \approx \sum_{i=1}^{n} w_i f(x_i)
+\int_{-1}^{1} f(x) dx \approx \sum_{i=1}^{n} w_i f(x_i)
 ```
 We demand that this approximation be exact for polynomials of degree less than 2n, so let S be such a polynomial. Then, the divison algorithm lets us express this in the form 
 ```math
@@ -142,23 +142,23 @@ S(x) = Q(x)P_n(x) + R(x)
 ```
 Where Pn is the nth degree legendre polynomial. Therefore,
 ```math
-\int_{-1}^{1} S(x) \ dx = \int_{-1}^{1} Q(x)P_n(x) \dx + \int_{-1}^{1} R(x) \ dx
+\int_{-1}^{1} S(x) dx = \int_{-1}^{1} Q(x)P_n(x) \dx + \int_{-1}^{1} R(x) \ dx
 ```
 Orthogonality gurantees that the integral of Q(x)Pn(x) goes to 0, so we obtain
 ```math
-\int_{-1}^{1} S(x) \ dx = \int_{-1}^{1} R(x) \ dx
+\int_{-1}^{1} S(x) dx = \int_{-1}^{1} R(x) dx
 ```
 We will set that aside for now and consider our approximation. We want our weighted sum over our n quadrature points to exaclty evalaute the integral of S.
 ```math
-\int_{-1}^{1} S(x) \dx = \sum_{i=1}^{n} w_i S(x_i) = \sum_{i=1}^{n} w_i (Q(x_i)P_n(x_i) + R(x_i))
+\int_{-1}^{1} S(x) dx = \sum_{i=1}^{n} w_i S(x_i) = \sum_{i=1}^{n} w_i (Q(x_i)P_n(x_i) + R(x_i))
 ```
 Then, we choose our quadrature points to be the n distinct roots of Pn. This reduces our equation to
 ```math
-\int_{-1}^{1} S(x) \dx =  \sum_{i=1}^{n} w_i  R(x_i)
+\int_{-1}^{1} S(x) dx =  \sum_{i=1}^{n} w_i  R(x_i)
 ```
 And we now equate our two forms for the integral to yield
 ```math
-\int_{-1}^{1} R(x) \dx =  \sum_{i=1}^{n} w_i  R(x_i)
+\int_{-1}^{1} R(x) dx =  \sum_{i=1}^{n} w_i  R(x_i)
 ```
 The important observation at this step is that we have converted the problem from inegrating a polynomial of degree up to 2n-1 with n quadrature points into an integral of an at most degree n-1 polynomial and n quadrature points. This can be handled precisely with lagrange quadrature. We continue by expressing R in terms of lagrange polynomials. 
 
