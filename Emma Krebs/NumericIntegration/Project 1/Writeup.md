@@ -245,7 +245,7 @@ Now that we have this paper's definition, we can do the proof.
 
 <ins>Proof.</ins>
 
-Suppose w(x) is an arbitrary weight function and A = {u<sub>1</sub>... u<sub>n</sub>} is the associated orthogonal polynomial set that spans all polynomials of degree $&le$ n. Let u<sub>n+1</sub> be the associated orthogonal polynomial with degree n+1. Now, consider a monomial, or single term expression, x<sup>L</sup> where L &le n. Now, since orthogonal polynomials form a basis, we can write x<sup>L</sup> in terms of A such that
+Suppose w(x) is an arbitrary weight function and A = {u<sub>1</sub>... u<sub>n</sub>} is the associated orthogonal polynomial set that spans all polynomials of degree $\le$ n. Let u<sub>n+1</sub> be the associated orthogonal polynomial with degree n+1. Now, consider a monomial, or single term expression, x<sup>L</sup> where L &le n. Now, since orthogonal polynomials form a basis, we can write x<sup>L</sup> in terms of A such that
 
 ```math
 x^L = \sum_{i=0}^N \gamma_i u_i(x)
