@@ -16,7 +16,9 @@ There are several methods when approximating a definite integral over a limit th
 
 Although all these methods will get you to your correct approximation, not all methods are equivalent in terms of efficency. This will effect both our timing, making more complex integration's approximations longer when trying to reach a certain precision or error, and computer resources for each loop run.
 
-There are five main methods that we have discussed so far: leftpoint, rightpoint, midpoint methods, trapezoid rule, and Simpson's rule. Leftpoint, rightpoint, and midpoint methods inherently follow their namesake such that their rectangles align with the left, right, and middle points, respectively, of the top edge of the rectangle.
+There are five main methods that we have discussed so far: leftpoint, rightpoint, midpoint methods, trapezoid rule, and Simpson's rule. Leftpoint, rightpoint, and midpoint methods inherently follow their namesake such that their rectangles align with the left, right, and middle points, respectively, of the top edge of the rectangle. An example of the three are show in the following figure.
+
+*Fig. 1) Left, right, and middle Riemann sums for y= f(x) on [1, 8] with 5 subintervals.*
 
  The error of the leftpoint and rightpoint methods decrease at a similar rate and are the worst efficency approximations out of the five with the error decreasing at a linear rate. The midpoint method and trapezoid rule are slightly better decreasing at a quadratic proportionality. The best of the five is Simpson's rule, which combines the weighted sums of the midpoint method and trapezoid rule to get an error proportionality with respect to the fourth power. However, for this project we worked on coding a trapezoid method to solve the following integral:
 
@@ -170,7 +172,7 @@ def Legendre_multiplier(i, j, x_values):
 
     return y, integrated_value
 ```
-which returns the plotted values of legendre(k)(x) for the y axis as well as the integration of the product. Let us check if our previous definition with the Kronecker delta is true.
+which returns the plotted values of legendre(k)(x) for the y axis as well as the integration of the product. Let us check if our previous definition with the Kronecker delta is true and see what these graphs look like. 
 
 ![Image](CompProject1Figure.png)
 
@@ -229,7 +231,7 @@ An example of some of these roots and weights are given in the following table f
 I chose to answer the following question:\
 Why are the optimal points for an $N$ order Gaussian quadrature the zeros of $P_N$?
 
-My work closely followes the PDF AM205: Gaussian quadrature in my sources. Let us start by defining a generic orthogonal polynomial set (not Legendre yet!) such that the inner product takes the form
+My work closely followes the PDF AM205: Gaussian quadrature in my sources (Note: I also included a PDF of my original writing before I turned it into the following markdown). Let us start by defining a generic orthogonal polynomial set (not Legendre yet!) such that the inner product takes the form
 ```math
 &ltp,q&gt = \int_a^b p(x)q(x)w(x)\,dx
 ```
@@ -326,6 +328,8 @@ https://cs357.cs.illinois.edu/textbook/assets/slides/03-Errors.pdf (New method f
 https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.legendre.html (Legendre polynomials)
 https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_xlabel.html (More on axes and matplotlib)
 https://personal.math.ubc.ca/~israel/m210/lesson19.pdf (Double checked my error for the integration methods)
+https://en.wikipedia.org/wiki/Legendre_polynomials#Rodrigues'_formula_and_other_explicit_formulas (Legendre polynomials)
+https://faculty.gvsu.edu/boelkinm/Home/ACS/sec-5-6-num-int.html (Left, right, mid figure)
 
 All the following sources are for extension 2:
 https://en.wikipedia.org/wiki/Quadrature_(mathematics)
