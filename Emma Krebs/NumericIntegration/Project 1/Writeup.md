@@ -105,11 +105,40 @@ This function definition is what passes the function, a, and b to the trapezoid_
 
 As we talked about in the first section, we discovered a better integration method through averaging the leftpoint and rightpoint methods. Now, consider Simpson's rule which fits a parabola using three points from a combination of the midpoint and trapezoid methods. This improved our efficency, but we can improve it even more by adjusting the sample points themselves. By mapping our original [a, b] range to [-1, 1], we can seek optimal x-coordinates at which to evaulate the given function through a weight function. This range is typically the best for Legendre and Chebyshev polynomials. In order to complete this mapping, we will use the following u-substitution:
 
+```math
+u=\frac{2x-a-b}{b-a}.
+```
+which also impacts our differential. This u-substitution means we need a du such that
 
+```math
+du=\frac{2}{b-a}.
+```
 
+Both of these equations were writting as function definitions such that
 
+```python
+'''
+    Definition: u (gaussian_quadrature)
+    Parameters: x (Value it needs to convert), a (start), and b (end)
+    Description: Maps a, b to [-1, 1] interval. By doing so, you can convert an x in that range.
+'''
+def u(x, a, b):
+    return (2*x - a - b) / (b - a)
 
+'''
+    Definition: du (gaussian_quadrature)
+    Parameters: a (start), and b (end)
+    Description: Replaces du so any integral can use dx as the respective variable.
+'''
+def du(a, b):
+    return 2 / (b - a)
+```
+To make sure the u function definition worked, I randomly selected a range to map onto [-1, 1]. Thus, as an example of what this mapping looks like we have:
 
+Test for Gaussian Quadrature with a = 1, b = 7, and x = 5\
+The starting point 1 becomes:  -1.0\
+The ending point 7 becomes:  1.0\
+The test variable 5 becomes:  0.3333333333333333
 
 -You will probably add more to this after doing the challenege section.
 
