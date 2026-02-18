@@ -21,7 +21,7 @@ There are five main methods that we have discussed so far: leftpoint, rightpoint
 ![Image](LeftRightMid.png)
 *Fig. 1) Left, right, and middle Riemann sums for y= f(x) on [1, 8] with 5 subintervals.*
 
- The error of the leftpoint and rightpoint methods decrease at a similar rate and are the worst efficency approximations out of the five with the error decreasing at a linear rate. The midpoint method and trapezoid rule are slightly better decreasing at a quadratic proportionality. The best of the five is Simpson's rule, which combines the weighted sums of the midpoint method and trapezoid rule to get an error proportionality with respect to the fourth power. However, for this project we worked on coding a trapezoid method to solve the following integral:
+The error of the leftpoint and rightpoint methods decrease at a similar rate and are the worst efficency approximations out of the five with the error decreasing at a linear rate. The midpoint method and trapezoid rule are slightly better, decreasing at a quadratic proportionality. The best of the five is Simpson's rule, which combines the weighted sums of the midpoint method and trapezoid rule to get an error proportionality with respect to the fourth power. However, for this project we worked on coding a trapezoid method to solve the following integral:
 
 ```math
 I = \int_0^2 \mathrm{d}x\, \sin^2\left(\sqrt{100x}\right)
