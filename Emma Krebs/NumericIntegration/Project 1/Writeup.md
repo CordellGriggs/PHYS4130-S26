@@ -146,7 +146,7 @@ The test variable 5 becomes:  0.3333333333333333
 
 ![Image](CompProject1Figure.png)
 
-Fig. 1) This is an image depicting the plots of two Legendre polynomials along with their product, P(i)*P(j). The subgraphs start at P(1) and P(1) and increase in i and j along the rows and columns to create a 4x4 group of subplots ranging from P(1) to P(4).
+*Fig. 1) This is an image depicting the plots of two Legendre polynomials along with their product, P(i)\*P(j). The subgraphs start at P(1) and P(1) and increase in i and j along the rows and columns to create a 4x4 group of subplots ranging from P(1) to P(4).*
 
 The resulting integration from -1 to 1 for this is given in the following statement:
 
@@ -184,8 +184,8 @@ c_{i,n}=\frac{1}{P_n^{\prime}(x_{N,i})}\int_{-1}^1\frac{P_n(x)}{x-x_{N,i}} \math
 
 As an additional source, the following diagram depicts the difference in weighting for points between the trapezoid, Simpson's, and Gaussian Quadrature rules:
 
-
-Fig. 2) The interpolation polynomials for various quadrature rules.
+![Image](CompFig2.png)
+*Fig. 2) The interpolation polynomials for various quadrature rules.*
 
 An example of some of these roots and weights are given in the following table for the following Legendre polynomials one through four:
 
