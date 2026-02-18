@@ -10,13 +10,13 @@ Simpson's method is a weighted average of the midpoint and trapezoid rule where 
 The Guassian quadrature method is a more refined and much more interesting method than any of the previous methods that revolve around Reimann sums. It utilizes Legendre polynomials to represent the integrand. Recall that Legendre polynomials are an orthonormal set of polynomials as shown in Fig. 1, and so they can be used to represent any polynomial exactly. Furthermore, if the integrand isn't a polynomial, Legendre polynomials can still be utilized to approximate it. The Guassian quadrature method approximates the integrand using Legendre polynomials and then integrates the constructed polynomial exactly. This is expressed as: 
 
 ```math
-\int_{-1}^{1} \mathrm{d}x\, f(x) \approx \sum_{i=1}^N c_{N,i} f\left(x_{N,i}\right)                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1)
+\int_{-1}^{1} \mathrm{d}x\, f(x) \approx \sum_{i=1}^N c_{N,i} f\left(x_{N,i}\right)                 \qquad(1)
 ```
 
 where $`x_{N,i}`$ are the sample points chosen at the roots of the Legendre polynomials and the weights are given by
 
 ```math
-c_{i,n}=\frac{1}{P_n^{\prime}(x_{N,i})}\int_{-1}^1\frac{P_n(x)}{x-x_{N,i}} \mathrm{d}x                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2)
+c_{i,n}=\frac{1}{P_n^{\prime}(x_{N,i})}\int_{-1}^1\frac{P_n(x)}{x-x_{N,i}} \mathrm{d}x                  \qquad(2)
 ```
 <br>
 <br>
@@ -35,7 +35,7 @@ python code.py
 It outputs the estimated result of the integral 
 
 ```math
-I = \int_0^2 \mathrm{d}x\, \sin^2\left(\sqrt{100x}\right)                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(3)
+I = \int_0^2 \mathrm{d}x\, \sin^2\left(\sqrt{100x}\right)                   \qquad(3)
 ```
 
 using the trapezoid rule along with the error and number of subintervals. Then, it outputs the estimated result using the Simpson rule. Lastly, it outputs these results using the Gaussian quadrature.
