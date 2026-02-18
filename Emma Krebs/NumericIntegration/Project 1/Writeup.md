@@ -114,7 +114,7 @@ which also impacts our differential. This u-substitution means we need a du such
 du=\frac{2}{b-a}.
 ```
 
-Both of these equations were writting as function definitions such that
+Both of these equations were written as function definitions such that
 
 ```python
 '''
