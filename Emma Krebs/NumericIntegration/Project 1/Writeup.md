@@ -12,13 +12,16 @@ meta:
 
 ### Numeric Integration Methods -- Trapezoid Rule 
 
-There are several methods when approximating a definite integral over a limit through Riemann Sums. This is when rectangles are formed by dividing the integral [a, b] into N subintervals from [x<sub>0</sub>, x<sub>1</sub>] to [x<sub>N-1</sub>, x<sub>N</sub>], where x<sub>0</sub> is a and x<sub>N</sub> is b. This approximates the area under the curve for a function f(x) when mulitplied by the height (or point on f(x)). For increasing subintervals N our approximation tends to become more accurate (Excluding cases with functions with alternating peaks above and below the x-axis since it can widely change between the number of subintervals depending on the points chosen. However, it will eventually approach the correct approximation). 
+There are several methods when approximating a definite integral over a limit through Riemann Sums. This is when rectangles are formed by dividing the integral [a, b] into N subintervals from [x<sub>0</sub>, x<sub>1</sub>] to [x<sub>N-1</sub>, x<sub>N</sub>], where x<sub>0</sub> is a and x<sub>N</sub> is b. This approximates the area under the curve for a function f(x) when multiplied by the height (or point on f(x)). For increasing subintervals N our approximation tends to become more accurate (Excluding cases with functions with alternating peaks above and below the x-axis since it can widely change between the number of subintervals depending on the points chosen. However, it will eventually approach the correct approximation). 
 
-Although all these methods will get you to your correct approximation, not all methods are equivalent in terms of efficency. This will effect both our timing, making more complex integration's approximations longer when trying to reach a certain precision or error, and computer resources for each loop run.
+Although all these methods will get you to your correct approximation, not all methods are equivalent in terms of efficiency. This will affect both our timing, making more complex integration's approximations longer when trying to reach a certain precision or error, and computer resources for each loop run.
 
-There are five main methods that we have discussed so far: leftpoint, rightpoint, midpoint methods, trapezoid rule, and Simpson's rule. Leftpoint, rightpoint, and midpoint methods inherently follow their namesake such that their rectangles align with the left, right, and middle points, respectively, of the top edge of the rectangle.
+There are five main methods that we have discussed so far: leftpoint, rightpoint, midpoint methods, trapezoid rule, and Simpson's rule. Leftpoint, rightpoint, and midpoint methods inherently follow their namesake such that their rectangles align with the left, right, and middle points, respectively, of the top edge of the rectangle. An example of the three are show in the following figure.
 
- The error of the leftpoint and rightpoint methods decrease at a similar rate and are the worst efficency approximations out of the five with the error decreasing at a linear rate. The midpoint method and trapezoid rule are slightly better decreasing at a quadratic proportionality. The best of the five is Simpson's rule, which combines the weighted sums of the midpoint method and trapezoid rule to get an error proportionality with respect to the fourth power. However, for this project we worked on coding a trapezoid method to solve the following integral:
+![Image](LeftRightMid.png)
+*Fig. 1) Left, right, and middle Riemann sums for y= f(x) on [1, 8] with 5 subintervals.*
+
+The error of the leftpoint and rightpoint methods decrease at a similar rate and are the worst efficiency approximations out of the five with the error decreasing at a linear rate. The midpoint method and trapezoid rule are slightly better, decreasing at a quadratic proportionality. The best of the five is Simpson's rule, which combines the weighted sums of the midpoint method and trapezoid rule to get an error proportionality with respect to the fourth power. However, for this project we worked on coding a trapezoid method to solve the following integral:
 
 ```math
 I = \int_0^2 \mathrm{d}x\, \sin^2\left(\sqrt{100x}\right)
@@ -50,7 +53,7 @@ In my code, I created the following definition
         return sum
 ```
 
-to represent this equation. The definition takes in the parameters func (given function), a (starting point of integral), b (ending point of integral), and n (the number of subintervals). Then, it loops over a range of n subintervals and continously sums using the trapezoid equation and our given parameters to get the approximate answer of the integral for n subintervals. While the trapezoid equation isn't called in the main body, it is called by another very important definition: the approximator.
+to represent this equation. The definition takes in the parameters func (given function), a (starting point of integral), b (ending point of integral), and n (the number of subintervals). Then, it loops over a range of n subintervals and continuously sums using the trapezoid equation and our given parameters to get the approximate answer of the integral for n subintervals. While the trapezoid equation isn't called in the main body, it is called by another very important definition: the approximator.
 
 ```python
 
@@ -74,7 +77,7 @@ to represent this equation. The definition takes in the parameters func (given f
         return sums
 ```
 
-This function definition is what passes the function, a, and b to the trapezoid_function. It also passes the true value of the integral (calculated through some other method) and the precision to which we want to know the accuracy of the approximation. It tracks the number of subintervals, the apporximated sum of that specific subinterval number, and the error from the true answer. The approximator function will also stop once an accuracy to whatever given significant figure is reached. I changed up my method of calculation for this cutoff from notebook 3. I originally used half the final decimal place of wanted degree of accuracy (ie. 10^-4 accuracy meant 0.00005 was passed). However, this didn't always result in the accuracy we were interested in, so I found a nice slideshow from Illinois.edu that gave me the corrected version we see above. It looks to find when the relative error is less than or equal to 10<sup>-n + 1</sup> where n is the decimal significant figure. An example of this is if relative error is 10<sup>-2</sup> then the approximation of x has at most three significant figures. The approximator calls on error_calc to find this relative error and then compare it to the passed sig_fig value. Since we were interested in accuracy to the 10^-6 degree, I passed 0.00005 as our sig_fig value to get a value within that error. Until it finds that n, it will double the number of subintervals each loop. The result of this is the following table:
+This function definition is what passes the function, a, and b to the trapezoid_function. It also passes the true value of the integral (calculated through some other method) and the precision to which we want to know the accuracy of the approximation. It tracks the number of subintervals, the approximated sum of that specific subinterval number, and the error from the true answer. The approximator function will also stop once an accuracy to whatever given significant figure is reached. I changed up my method of calculation for this cutoff from notebook 3. I originally used half the final decimal place of wanted degree of accuracy (ie. 10^<sup>-4</sup> accuracy meant 0.00005 was passed). However, this didn't always result in the accuracy we were interested in, so I found a nice slideshow from Illinois.edu that gave me the corrected version we see above. It looks to find when the relative error is less than or equal to 10<sup>-n + 1</sup>, where n is the decimal significant figure. An example of this is if relative error is 10<sup>-2</sup> then the approximation of x has at most three significant figures. The approximator calls on error_calc to find this relative error and then compare it to the passed sig_fig value. Since we were interested in accuracy to the 10<sup>-6</sup> degree, I passed 0.00005 as our sig_fig value to get a value within that error. Until it finds that n, it will double the number of subintervals each loop. The result of this is the following table:
 
             Subintervals     Summation   Error(%)
         0              1  0.9999753124   0.56948%
@@ -94,7 +97,7 @@ This function definition is what passes the function, a, and b to the trapezoid_
 
 ### Gaussian Quadrature
 
-As we talked about in the first section, we discovered a better integration method through averaging the leftpoint and rightpoint methods. Now, consider Simpson's rule which fits a parabola using three points from a combination of the midpoint and trapezoid methods. This improved our efficency, but we can improve it even more by adjusting the sample points themselves. By mapping our original [a, b] range to [-1, 1], we can seek optimal x-coordinates at which to evaulate the given function through a weight function. This range is typically the best for Legendre and Chebyshev polynomials, which we will talk about in the next section. In order to complete this mapping, we will use the following u-substitution:
+As we talked about in the first section, we discovered a better integration method through averaging the leftpoint and rightpoint methods. Now, consider Simpson's rule which fits a parabola using three points from a combination of the midpoint and trapezoid methods. This improved our efficiency, but we can improve it even more by adjusting the sample points themselves. By mapping our original [a, b] range to [-1, 1], we can seek optimal x-coordinates at which to evaluate the given function through a weight function. This range is typically the best for Legendre and Chebyshev polynomials, which we will talk about in the next section. In order to complete this mapping, we will use the following u-substitution:
 
 ```math
 u=\frac{2x-a-b}{b-a}.
@@ -133,13 +136,50 @@ The test variable 5 becomes:  0.3333333333333333
 
 ### Legendre Polynomials
 
-To invesitgate this idea further, we need to understand Ledgenre polynomials. 
+To investigate this idea further, we need to understand Legendre polynomials. Legendre polynomials are a system of complete and orthogonal polynomials with a wide range of mathematical applications. Discovered in 1782 by Adrien-Marie Legendre as the coefficients of the series expansion of Newtonian potentials for electrostatics and gravitation, they are dependent on order and can be represented as P<sub>n</sub> and generated by Rodrigues' formula
+
+```math
+P_n(x) = \dfrac{1}{2^nn!}\dfrac{d^n}{dx^n}(x^2-1)^n
+```
+
+However, the more important aspect of this set is their orthogonality property. We define this with
+```math
+\int_{-1}^1 P_m(x)P_n(x)\,dx = \dfrac{2}{2n+1}\delta_{mn}
+```
+where $\delta_{mn}$ is the Kronecker delta which equals 0 when m &ne n and 1 when m = n. 
+
+This property is what will lead us to using these polynomials for our Gaussian quadrature. However, first let us investigate this property with some code. We were tasked with creating a 4x4 grid of graphs showcasing these polynomials plotted [-1,1] along with their combination of products. To plot the individual polynomials, I just cycled through two for loops and increased the n value of the polynomial for each loop. The legendre was found using the scipy library. I created a separate function definition For the product of the two individual polynomials:
+
+```python
+'''
+    Definition: Legendre_multiplier
+    Parameters: i, j (trackers of loop), x_values (array of values for finding values of y)
+    Description: For every loop of the subplots, this calculates the product and returns a list of y
+        values to be plotted and the values of the integrated product.
+'''
+def Legendre_multiplier(i, j, x_values):
+    p1 = legendre(i+1)
+    p2 = legendre (j+1)
+
+    u_x_values = u(x_values, min(x_values), max(x_values))
+
+    y = p1(u_x_values) * p2(u_x_values) #  Evaluated function for plotting
+    integrand = p1 * p2 # Unevaluated function for integrating
+
+    scale = du(min(u_x_values), max(u_x_values)) 
+
+    integrated_value, _ = sp.integrate.quad(integrand, min(u_x_values), max(u_x_values))
+    integrated_value = integrated_value * scale 
+
+    return y, integrated_value
+```
+which returns the plotted values of legendre(k)(x) for the y-axis as well as the integration of the product. Let us check if our previous definition with the Kronecker delta is true and see what these graphs look like. 
 
 ![Image](CompProject1Figure.png)
 
-*Fig. 1) This is an image depicting the plots of two Legendre polynomials along with their product, P(i)\*P(j). The subgraphs start at P(1) and P(1) and increase in i and j along the rows and columns to create a 4x4 group of subplots ranging from P(1) to P(4).*
+*Fig. 2) This is an image depicting the plots of two Legendre polynomials along with their product, P(i)\*P(j). The subgraphs start at P(1) and P(1) and increase in i and j along the rows and columns to create a 4x4 group of subplots ranging from P(1) to P(4).*
 
-The resulting integration from -1 to 1 for this is given in the following statement:
+The resulting integration from -1 to 1 for this is given in the following table:
 
     P(i)*P(j)             Value  Approx. Value
     0      P1*P1  6.6666666667e-01        0.66667
@@ -161,13 +201,13 @@ The resulting integration from -1 to 1 for this is given in the following statem
 
 Thus, confirming that any integral P(i)*P(j) where i does not equal j is 0. 
 
-This orthogonality property is what will allow us to define the Legendre's roots and weights as points for Gaussian Quadrature. It acts similar to Simpson's rule with how it weights points differently depending on the optimal method of minimizing error. The orthogonality property is important because Legendre polynomials are orthogonal to all polynomials of a lower degree. Using the roots as points means we can minimize this error because it is proportional to our polynomial roots, meaning any polynomial with a lower degree is 0 because of this orthogonality principle. Kind of similar to the step we took to get to the trapezoid rule by minimizing the leftpoint and rightpoint errors. Therefore, we can calculate exact polynomials for degrees of polynomials 2n-1 or less. From Dr. Reid's NumericReps file, we can write the approximation for an integral as the following summation:
+This orthogonality property is what will allow us to define the Legendre's roots and weights as points for Gaussian Quadrature. It acts similar to Simpson's rule with how it weights points differently depending on the optimal method of minimizing error. The orthogonality property is important because Legendre polynomials are orthogonal to all polynomials of a lower degree. Using the roots as points means we can minimize this error because it is proportional to our polynomial roots, meaning any polynomial with a lower degree is 0 because of this orthogonality principle. Kind of similar to the step we took to get to the trapezoid rule by minimizing the leftpoint and rightpoint errors. Therefore, we can calculate exact integrations for polynomials for degrees 2n-1 or less. From Dr. Reid's NumericReps file, we can write the approximation for the integral as the following summation:
 
 ```math
 \int_{-1}^{1} \mathrm{d}x\, f(x) \approx \sum_{i=1}^N c_{N,i} f\left(x_{N,i}\right)
 ```
 
-where the points $`x_{N,i}`$ are the roots of the Nth order legendre polynomial, and the weights are given by the following integral:
+where the points $`x_{N,i}`$ are the roots of the N<sub>th</sub> order Legendre polynomial, and the weights are given by the following integral:
 
 ```math
 c_{i,n}=\frac{1}{P_n^{\prime}(x_{N,i})}\int_{-1}^1\frac{P_n(x)}{x-x_{N,i}} \mathrm{d}x
@@ -176,9 +216,9 @@ c_{i,n}=\frac{1}{P_n^{\prime}(x_{N,i})}\int_{-1}^1\frac{P_n(x)}{x-x_{N,i}} \math
 As an additional source, the following diagram depicts the difference in weighting for points between the trapezoid, Simpson's, and Gaussian Quadrature rules:
 
 ![Image](CompFig2.png)
-*Fig. 2) The interpolation polynomials for various quadrature rules.*
+*Fig. 3) The interpolation polynomials for various quadrature rules.*
 
-An example of some of these roots and weights are given in the following table for the following Legendre polynomials one through four:
+An example of some of these roots and weights are given in the table for the following Legendre polynomials one through four:
 
         P(x)                                              Roots                                            Weights
     0     1                                              [0.0]                                              [2.0]
@@ -192,11 +232,83 @@ An example of some of these roots and weights are given in the following table f
 I chose to answer the following question:\
 Why are the optimal points for an $N$ order Gaussian quadrature the zeros of $P_N$?
 
-We can start 
+My work closely follows the PDF AM205: Gaussian quadrature in my sources (Note: I also included a PDF of my original writing before I turned it into the following markdown). Let us start by defining a generic orthogonal polynomial set (not Legendre yet!) such that the inner product takes the form
+```math
+&ltp,q&gt = \int_a^b p(x)q(x)w(x)\,dx
+```
+where w(x) is an arbitrary weight function and for a set of orthogonal polynomials {u<sub>1</sub>, u<sub>2</sub>, etc}:
+
+```math
+\langle u_i, u_j \rangle = 0 \quad \text{for } i \neq j
+```
+Now that we have this paper's definition, we can do the proof.
+
+<ins>Proof.</ins>
+
+Suppose w(x) is an arbitrary weight function and A = {u<sub>1</sub>... u<sub>n</sub>} is the associated orthogonal polynomial set that spans all polynomials of degree less than or equal to n. Let u<sub>n+1</sub> be the associated orthogonal polynomial with degree n+1. Now, consider a monomial, or single term expression, x<sup>L</sup> where L $\leq$ n. Now, since orthogonal polynomials form a basis, we can write x<sup>L</sup> in terms of A such that
+
+```math
+x^L = \sum_{i=0}^N \gamma_i u_i(x)
+```
+where $\gamma_i$ is a scalar.
+
+Then, we can rewrite 
+```math
+&ltp,q&gt = \int_a^b p(x)q(x)w(x)\,dx
+```
+as
+
+```math
+\implies &ltp,q&gt = \int_a^b x^Lu_{n+1}(x)w(x)\,dx
+```
+
+```math
+\implies &ltp,q&gt = \int_a^b (\sum_{i=0}^N \gamma_i u_i(x))u_{n+1}(x)w(x)\,dx
+```
+where we can rewrite the integrand with our defined inner product if we allow p(x) = u<sub>i</sub>(x) and q(x) = u<sub>n+1</sub>(x) such that
+```math
+\implies \sum_{i=0}^L \gamma_i \langle u_i, u_{n+1} \rangle = 0
+```
+since u<sub>n+1</sub>(x) is orthogonal to the set A, and every u<sub>i</sub>(x) is an element of that set.
+
+Now, let the points of our quadrature x<sub>0</sub>(x), x<sub>1</sub>(x),...,x<sub>n</sub>(x) be our roots for the polynomial u<sub>n+1</sub>(x)  and define our weights as
+
+```math
+w_k = \int_a^b P_k(x)w(x)\,dx
+```
+where P<sub>k</sub>(x) is the k<sup>th</sup> basis polynomial. Then, we can write an arbitrary polynomial (of degree less than or equal to 2n +1) as the divisible decomposition 
+```math
+f(x) = p(x)u_{n+1}(x) + r(x)
+```
+where p and r are polynomials of, at most, degree n. The important term to keep note of is the remainder term r(x). Thus, we can write an integral of f(x) such that
+
+```math
+I[f]= \int_a^b f(x)w(x)\,dx
+\implies \int_a^b (p(x)u_{n+1}(x) + r(x))w(x)\,dx
+= \int_a^b (p(x)u_{n+1}(x)w(x) + \int_a^b r(x))w(x)\,dx
+```
+where the first term can be written as an inner product and since p(x) is a polynomial of at most degree n, then it is orthogonal to u<sub>n+1</sub>(x), leaving us with
+```math
+\implies \int_a^b r(x))w(x)\,dx
+```
+Applying our quadratic algorithm, we find
+```math
+Q[f] = \sum_{k=0}^n w_kf(x_k)  = \sum_{k=0}^n w_k(p(x_k)u_{n+1}(x_k)+r(x_k))
+    = \sum_{k=0}^nw_kr(x_k)
+```
+These p terms vanish because we let x<sub>k</sub> be the roots of u<sub>n+1</sub>(x), so
+```math
+u_{n+1}(x_k) = 0 \implies p(x_k)u_{n+1}(x_k) = 0
+```
+Q[f] approximates the integral of f(x)w(x), but given our f(x) definition we find that
+```math
+Q[f] = \sum_{k=0}^n w_kf(x_k) = \int_a^b r(x))w(x)\,dx = I[f]
+```
+Therefore, this is an exact integration for an f $\in$ **P**<sub>2n+1</sub>. This proof is complete once you let w(x) = 1 for Legendre polynomials (or u<sub>k</sub> = P<sub>k</sub>). The PDF notes that you can do a similar method to derive other quadrature polynomial estimates. Therefore, the optimal points for a Guassian quadrature are the zeros of P<sub>n</sub> because it approximates to an exact integration. $\blacksquare$
 
 ## Languages, Libraries, Lessons Learned
 
-The primary language for this assignment was Python where we used the libraries scipy, numpy, and pandas. We have consistenly worked in Python from the beginning of this module to the final project. The pandas library was especially useful in creating tables and organizing information. I also learned how to create subplots. I knew you could make a 2x2 grid of plots, but I didn't know you could make sizes up to 4x4, so that was neat. 
+The primary language for this assignment was Python where we used the libraries scipy, numpy, and pandas. We have consistently worked in Python from the beginning of this module to the final project. The pandas library was especially useful in creating tables and organizing information. I also learned how to create subplots. I knew you could make a 2x2 grid of plots, but I didn't know you could make sizes up to 4x4, so that was neat. Additionally, I enjoyed extension 2 because I am in linear algebra 2 right now, and I saw some similar techniques to what we are doing in that class right now.
 
 ## Timekeeping
 
@@ -217,6 +329,8 @@ https://cs357.cs.illinois.edu/textbook/assets/slides/03-Errors.pdf (New method f
 https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.legendre.html (Legendre polynomials)
 https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_xlabel.html (More on axes and matplotlib)
 https://personal.math.ubc.ca/~israel/m210/lesson19.pdf (Double checked my error for the integration methods)
+https://en.wikipedia.org/wiki/Legendre_polynomials#Rodrigues'_formula_and_other_explicit_formulas (Legendre polynomials)
+https://faculty.gvsu.edu/boelkinm/Home/ACS/sec-5-6-num-int.html (Left, right, mid figure)
 
 All the following sources are for extension 2:
 https://en.wikipedia.org/wiki/Quadrature_(mathematics)

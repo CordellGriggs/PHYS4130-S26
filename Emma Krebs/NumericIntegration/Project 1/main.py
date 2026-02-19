@@ -46,7 +46,11 @@ def error_calc(current, true):
     Parameters: f (Given function), start (Starting point of subdivision), end (Ending point of subdivision),
         true_value (Correct value of integral that we will use for approximation), and value of sig_fig we
         are interested in.
-    Description: **********
+    Description: passes the function, a, and b to the trapezoid_function. It also passes the true value of the 
+        integral (calculated through some other method) and the precision to which we want to know the accuracy of 
+        the approximation. It tracks the number of subintervals, the apporximated sum of that specific subinterval 
+        number, and the error from the true answer. The approximator function will also stop once an accuracy to 
+        whatever given significant figure is reached.
 '''
 def approximator(f, start, end, true_value, sig_fig):
 
@@ -97,8 +101,9 @@ def du(a, b):
 
 '''
     Definition: Legendre_multiplier
-    Parameters: 
-    Description: 
+    Parameters: i, j (trackers of loop), x_values (array of values for finding values of y)
+    Description: For every loop of the subplots, this calculates the product and returns a list of y
+        values to be plotted and the values of the integrated product.
 '''
 def Legendre_multiplier(i, j, x_values):
     p1 = legendre(i+1)
@@ -106,8 +111,8 @@ def Legendre_multiplier(i, j, x_values):
 
     u_x_values = u(x_values, min(x_values), max(x_values))
 
-    y = p1(u_x_values) * p2(u_x_values) # Evaulated function for plotting
-    integrand = p1 * p2 # Unevaulated function for integrating
+    y = p1(u_x_values) * p2(u_x_values) # Evaluated function for plotting
+    integrand = p1 * p2 # Unevaluated function for integrating
 
     scale = du(min(u_x_values), max(u_x_values)) 
 
@@ -175,9 +180,3 @@ for N in range(4):
 
 dg = pd.DataFrame({'P(x)': values_array,'Roots': roots_array, 'Weights': weights_array})
 print(dg)
-
-# ------------------ Extension ------------------
-
-# This section is for extension question 1
-
-
