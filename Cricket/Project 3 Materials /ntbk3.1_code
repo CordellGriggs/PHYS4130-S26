@@ -1,0 +1,31 @@
+# exercise 1 
+
+# find array of times and number of nuclei at each point
+
+# import libraries
+import numpy as np
+import matplotlib.pyplot as plt
+
+tmin = 0.0
+tmax = 4.0
+nts = 100
+
+N0 = 100.0  # Note:  I'm treating this as a floating point number even though the number of nuclei should probably
+            # be an integer.  We've assumed a large-ish number, so that any fraction of the initial is a whole number.
+tau = 0.7
+
+# fill time array with points and define N_array
+t_array = np.linspace(tmin, tmax, nts)
+dt = (tmax - tmin) / nts
+N_array = np.zeros(nts)
+N_array[0] = N0
+
+# apply Euler's method
+for i in range(nts - 1):
+  dN_dt = - N_array[i] / tau
+  N_array[i+1] = N_array[i] + dN_dt * dt
+
+# plot
+plt.plot(t_array,N_array, color = 'red')
+plt.xlabel("Time [gy]")
+plt.show()
