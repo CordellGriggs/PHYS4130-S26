@@ -26,6 +26,8 @@ def Symplectic_Euler(start_v, start_u, w, h, steps):
     
     return v_array, u_array
 
+x_array, p_array = Symplectic_Euler(1, 1, 1, 0.025, 10)
 
-Symplectic_Euler(1, 1, 1, 0.025, 10)
+plt.plot(x_array, p_array)
+plt.plot()
 
