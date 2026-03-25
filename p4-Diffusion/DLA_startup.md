@@ -35,8 +35,10 @@ There has been a *lot* of work since then, but this is already a little overkill
 
 ### Rough Draft
 > [!IMPORTANT]
-> 3pm on ???
-> You should have code to generate a DLA figure for $N=100$. More is better, but this is a minimum.
+> 3pm on April 9
+> You should have
+> 1. Code to generate a DLA figure for $N=100$. More is better, but this is a minimum.
+> 2. An outline for your writeup. Include placeholder figures that you *want* to have in the final version.
 
 ### Final Draft
 > [!IMPORTANT]
