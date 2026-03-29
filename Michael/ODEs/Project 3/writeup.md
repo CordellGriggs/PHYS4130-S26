@@ -180,15 +180,49 @@ As expected, the system is now losing energy to viscous forces. This causes it t
 
 (Show the energy vs time plots)
 
-Now, to see how the different methods behave, we should consider the relative error of the methods with the analytic solution. 
+In this case, Velocity Verlet just behaves as a second order integrator. Therefore, it has lost the advantage it had over RK4(5) and LSODA.
 
+## Phase Space Volume Conservation
+Earlier, symplectic methods were described as conserving volume in phase space. This is something we can analyze with our undamped simple harmonic oscillator. Since this system follows the trajectory of one particle, we have a two dimensional phase space: Velocity vs Position. So, our volume becomes an area. Then, the algorithm is relativly simple. We want to see how the volume of a small patch of area in phase space evolves over time. To achieve this, we generate a list of random initial conditions that are close. This will approximate our patch of area. Then, we will use the concave_hull and shapely.geometry packages to generate a concave hull around our points as they evolve in time and calculate the area. Here is some sample code for the Velocity Verlet method.
 
+```python
+from concave_hull import concave_hull
+from shapely.geometry import Polygon
+from P3_Methods import VelVerlet, Yoshida, LSODA
 
-then show the plots for the unddamped and damped case. Proceed to talk about how the verlet method conserves energy and does not drift, and how to other methods maintain higher precision when the energy is not conserved. Don;t forget to discuss the order of error and how that impacts the long-term accuracy of the method.)
+tmin = 0 #s start time
+tmax = 50 #s end time
+nts = 350 #number of points between tmin and tmax
+
+n = 250
+X0 = np.random.uniform(0.95, 1, size = n)
+Y0 = np.random.uniform(0.95, 1, size = n)
+
+solutions = VelVerlet(X0, Y0, tmin, tmax, nts, SHO)
+t = solutions[0]
+
+PhaseVolumes = np.zeros(len(t))
+for j in range(len(t)):
+    P = [[solutions[k][0][j], solutions[k][1][j]] for k in range(1,n)]
+    P = concave_hull(P, concavity=2.0)
+    poly = Polygon(P)
+    PhaseVolumes[j] = poly.area
+
+plt.plot(t, PhaseVolumes, label = "Velocity Verlet")
+```
+We can see how these different methods affect phase space. 
+
+(Show plot of phase volum  vs time for the 4 different methods)
+
+The two symplectic methods seem to be conserving phase space volume while the others are accumulating more error as the simulation continues! Now, let's see what happens when damping is introduced.
+
+(Show plot for the damped phase volume)
+
+Now, all methods have the volume decaying to zero. This is not surprising of course. This system no longer conserves energy, and all initial conditions should tend towards the zero energy state at the origin. So, since all points get closer over time, the phase space area will decrease.
 
 ## n - Body Problem and the Virial Theorem
 
-## Phase Space Volume Conservation
+
 
 ## Conclusion
 (Idea to inclulde in this section: Which integrator is the best? There is not one that is objectively better than the others. The one that you choose depends on the the problem you are trying to solve and the context of your field.)
