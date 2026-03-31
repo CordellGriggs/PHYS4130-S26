@@ -155,7 +155,8 @@ Here, k is the spring constant, m is the mass, and c is the damping strength. Fo
 
 ```math
 \dot{x} = y
-\\\\
+```
+```math
 \dot{y} = -\frac{b}{m} y - \frac{k}{m} x
 ```
 For the way my code is configured, we need to express the derivatives of the system in a specfic way.
