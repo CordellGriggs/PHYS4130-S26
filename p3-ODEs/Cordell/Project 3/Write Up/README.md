@@ -1,8 +1,7 @@
 # Introduction
-Numerical methods can be implemented to approximate solutions for ordinary differential equations (ODEs) that would otherwise be an algebraically labor-some task. This package was developed to demonstrate the capabilities of several approximation techniques which include Euler's method, the Runge-Kutta technique, Verlet integration, and Scipy's ODEINT. We provide phase-space and Energy vs Time plots to illustrate their approximation capabilities and ability to conserve energy. By the same token, analyze the absolute error of each method.        
+Numerical methods can be implemented to approximate solutions for ordinary differential equations (ODEs) that would otherwise be an algebraically labor-some task. This package was developed to demonstrate the capabilities of several approximation techniques which include Euler's method, the Runge-Kutta technique, Verlet integration, and Scipy's ODEINT. We provide an explanation of how each method works. Then, we showcase phase-space and Energy vs Time plots to illustrate the capabilities of each approximation technique and ability to conserve energy. By the same token, we analyze the error of these numerical methods in various manners.        
 
-
- We found that the Verlet method reaches a 5% relative error within 64 time steps, whereas RK2, RK4, and ODEINT reach the target error within 128 time steps, and Euler's method requires about 2048 time steps. The pros and cons of each method depending on the situation are further discussed in the report.
+ We found that the while one method might be the most optimal for one situation, another method might be optimal for a different situation. The pros and cons of each method depending on the situation are further discussed in the report.
 ## Background Theory
 
 Euler's method is typically what one would start out with when exploring ODE approximation methods. It approximates the solution of an ODE at a point, B, by starting from an initial value, point A, and taking the next point B on the tangent line to the solution at point A. Then, it repeats the process for the subsequent points as depicted in Fig. 1. The number of these sub-intervals taken over time is typically referred to as the number of time steps (nts). And, the error of Euler's method reduces proportionally as the number of time steps increases, so we call it a first order method or a first order approximation. 
@@ -12,7 +11,7 @@ Euler's method is typically what one would start out with when exploring ODE app
 </p>
 
 <p align="center">
-  Figure 1: Illustration of Euler's method. The red line is the numerical approximation, and the blue line is the analytic solution. Reproduced from [1].
+  Figure 1: Illustration of Euler's method. The red line is the numerical approximation, and the blue line is the analytic solution. Reproduced from [Wikipedia](https://en.wikipedia.org/wiki/Euler_method).
 </p>
 
 
@@ -252,7 +251,71 @@ While there is no clear "best" method for all scenarios, each method can be cons
 
 # Extensions
 
+## Symplectics Deep Dive: Programming
+
+I used the triangle method that you described the day we were in Advanced Lab. 
+
+```python
+def triangle(x0, p0, dx, dp): # x0, p0 is one corner
+    return np.array([[x0, p0], [x0 + dx, p0], [x0, p0 + dp]])
+
+
+def triangle_area(x1, p1, x2, p2, x3, p3):
+    return 0.5 * np.abs(x1*(p2 - p3) + x2*(p3 - p1) + x3*(p1 - p2))
+
+def phase_space_area(x0, p0, dx, dp, tmin, tmax, nts, deriv, solver):
+    corners = triangle(x0, p0, dx, dp)      # initialize points
+
+    # let each point evolce in phase space
+    t_array, x1, p1 = solver(corners[0,0], corners[0,1], tmin, tmax, nts, deriv)
+    t_array, x2, p2 = solver(corners[1,0], corners[1,1], tmin, tmax, nts, deriv)
+    t_array, x3, p3 = solver(corners[2,0], corners[2,1], tmin, tmax, nts, deriv)
+
+    # find the new areas at each time step
+    area_array = np.zeros(len(t_array))
+    for i in range(len(t_array)):
+        area_array[i] = triangle_area(x1[i], p1[i], x2[i], p2[i], x3[i], p3[i])
+
+    return t_array, area_array
+```
+
+
+
+
+ 1. How does phase space area (Total Mechanical Energy) evolve in the damped and undamped SHM scenerios?
+
+In the undamped cases, phase space area seemed relatively conserved for Verlet method and it drifts positively and linearly for RK2 and Euler's method. Broadly, it is either conserved or growing for the undamped case. Meanwhile, it decays for Verlet, RK2, and Euler's method in the damped case.
+
+<p align="center">
+  <img src="./Ext1_Verlet_UnDamped.png" alt="E1VU" width="32%">
+  <img src="./Ext1_RK2_UnDamped.png" alt="E1RK2U" width="32%">
+  <img src="./Ext1_Euler_UnDamped.png" alt="E1EU" width="32%">
+</p>
+
+<p align="center">
+  <b>Figure 7:</b> Undamped cases for Verlet, RK2, and Euler (left to right). It looks like phase space area is conserved for Verlet integration. It looks to grow or drift linearly for RK2 and Euler's method.
+</p>
+
+<p align="center">
+  <img src="./Ext1_Verlet_Damped.png" alt="E1VU" width="32%">
+  <img src="./Ext1_RK2_Damped.png" alt="E1RK2U" width="32%">
+  <img src="./Ext1_Euler_Damped.png" alt="E1EU" width="32%">
+</p>
+
+<p align="center">
+  <b>Figure 8:</b> Damped cases for Verlet, RK2, and Euler (left to right). Phase space area seems to decay for Verlet integration, RK2, and Euler's method.
+</p>
+
+
+ 2. How do different integrators affect this variation in area?
+ 
+All of the integrators seem to have a similar effect in the damped case in which the phase space area decays. However, in the undamped case Verlet integration stands out as it conserves phase space area whereas RK2 and Euler's method do not.
+
+
 # Questions
+
+## Attribution 
+I used Wikipedia for the recursive definitions of the algorithms, mainly Verlet but I had to refresh myself on RK2. I also used Scipy's documentation on ODEINT, solveivp, and LSODA to learn about how ODEINT works.
 
 ## Timekeeping
 
@@ -267,3 +330,16 @@ Week before spring break:
 
 After spring break: 
 3 hours: Tuesday 3/24
+
+2 hours: Thursday or Friday (I forgot)
+
+Week of 4/1
+
+5 hours: Tuesday
+
+3 hours: Wednesday
+
+Main thing I got caught up on for a few hours yesterday was when I realized Scipy's RK4 was doing its own thing with the time steps.
+
+## Languages, Libraries, Lessons Learned
+I thought Scipy's RK4(5) was frustrating for what I wanted to do because it wouldn't let me tell it how many time steps to use. I feel like you have less freedom when using something from a library sometimes.
