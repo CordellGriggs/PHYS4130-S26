@@ -251,10 +251,15 @@ As expected, the system is now losing energy to viscous forces. This causes it t
 In this case, Velocity Verlet just behaves as a second order integrator. Therefore, it has lost the advantage it had over RK4(5) and LSODA.
 
 ## n - Body Problem and the Virial Theorem
-Too simulate the n-body problem, we need to develop some more complicated theory than the SHO. We can derive approximate equations for the gravitational field produced by a point mass by using the weak-field limit of the Einstein field equations. When doing so, we can obtain Newton's universal law of gravitation. 
+Too simulate the n-body problem, we need to develop some more complicated theory than the SHO. We can derive approximate equations for the gravitational field produced by a point of mass M by using the weak-field limit of the Einstein field equations. When doing so, we can obtain Newton's universal law of gravitation. 
 
 ```math
-\mathbf{g}(\mathbf{r}) = -G M \frac{\mathbf{r}}{r^3}
+\mathbf{g}(\mathbf{x}) = -G M \frac{\mathbf{x}}{x^3}
+```
+Where x is the position vector from the mass point to the field point, and G is the gravitational constant. Then, for a collection of n point masses, the acceleration on each point is the sum of the individual accelerations. 
+
+```math
+\mathbf{a}_j = - \sum_{\substack{i=1 \\ i \neq j}}^{n} G m_i \frac{\mathbf{x}_j - \mathbf{x}_i}{\lvert \mathbf{x}_j - \mathbf{x}_i \rvert^3}
 ```
 
 The energy-conserving properties of symplectic integrators make them useful for the n-body problem. For this section, we will employ the 4th Order Yoshida method. Let's see how it handles a 5-body system with the following conditions.
