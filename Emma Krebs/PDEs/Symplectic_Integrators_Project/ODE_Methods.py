@@ -4,18 +4,33 @@
     Author: Emma Krebs
     Final due date: 2/26/26
     File description: This file is to be used in the main.py. It includes the main three ODE's needed for 
-                    comparison of the harmonic oscillator. This inlcudes a syplectic integration, RK45, 
+                    comparison of the harmonic oscillator. This inlcudes a symplectic integration, RK45, 
                     and Odeint solvers.
 '''
 
 
 import numpy as np
 import math
-from scipy.integrate import RK45, odeint
+from scipy.integrate import odeint, solve_ivp
 
 
-def Harmonic_oscillator(t, N):
-    return 0
+def Harmonic_oscillator(x_0, p_0, tmax, w, damp, N):
+    
+    t_array = np.linspace(0, tmax, N)
+    x_array = []
+    p_array = []
+
+    for t in t_array:
+        x = x_0 * math.cos(w*t) + p_0 * math.sin(w*t) / w
+        p = p_0 * math.cos(w*t) - w*x_0*math.sin(w*t)
+        x_array.append(x)
+        p_array.append(p)
+    
+    return x_array, p_array, t_array
+
+
+def Relative_error(analytic, estimated):
+    return np.abs(analytic-estimated) / analytic
 
 
 def Harmonic_deriv(t, y, w, damp):
@@ -41,7 +56,7 @@ def Harmonic_deriv(t, y, w, damp):
     return [dxdt, dpdt]
 
 
-def Verlet_symplectic(x_0, p_0, tmax, w, damp):
+def Verlet_symplectic(x_0, p_0, tmax, w, damp, N):
 
     """
     Modification of the Euler method for solving Hamiltonains. Yields better results than Euler
@@ -62,7 +77,28 @@ def Verlet_symplectic(x_0, p_0, tmax, w, damp):
         Three arrays: x_array and p_array of harmonic oscillator for a certain time/steps. Also include t_array from steps.
     """
 
-    return 0
+    t_array = np.linspace(0, tmax, N)
+    x_array = np.zeros(len(t_array))
+    p_array = np.zeros(len(t_array))
+    h = t_array[1] - t_array[0]
+    x_array[0] = x_0
+    p_array[0] = p_0
+
+    # Get the next value
+    a_0 = -w**2*x_0 - damp*p_0
+    x_array[1] = x_0 + p_0*h + 0.5*a_0*h**2
+
+    # Iterations, update momentum first then position
+    for i in range(1, len(t_array) - 1):
+
+        a = -w**2*x_array[i] - damp*((x_array[i] - x_array[i - 1])) / h # Acceleration
+        x_array[i+1] = 2*x_array[i] - x_array[i - 1] + a*h**2
+
+        p_array[i] = (x_array[i+1] - x_array[i - 1]) / (2*h)
+    
+    p_array[-1] = (x_array[-1] - x_array[-2]) / h
+
+    return x_array, p_array, t_array
 
 
 def RK45_solver(x_0, p_0, tmax, w, damp, N):
@@ -84,20 +120,12 @@ def RK45_solver(x_0, p_0, tmax, w, damp, N):
     """
 
     y_0 = [x_0, p_0]
-
-    # Object that is used to generate the arrays
-    solver = RK45(lambda t, y_0: Harmonic_deriv(t, y_0, w, damp), 0, y_0, tmax)
-
-    x_array = []
-    p_array = []
-    t_array = []
-
-    # Repeat until solver stops running (when it hits the tmax after n steps)
-    while solver.status == 'running':
-        x_array.append(solver.y[0]) # Current value for x
-        p_array.append(solver.y[1]) # Current value for p
-        t_array.append(solver.t) # Current time
-        solver.step()
+    t_array = np.linspace(0, tmax, N)
+    # Force it to match other integration methods
+    sol = solve_ivp(Harmonic_deriv, (0, tmax), y_0, method='RK45', t_eval=t_array, args=(w, damp)) 
+    t_array = sol.t
+    x_array = sol.y[0]
+    p_array = sol.y[1]
 
     return x_array, p_array, t_array
 
@@ -123,9 +151,9 @@ def Odeint_solver(x_0, p_0, tmax, w, damp, N):
     y_0 = [x_0, p_0]
 
     t = np.linspace(0, tmax, N)
-    N = odeint(Harmonic_deriv, y_0, t, args=(w, damp), tfirst=True)
+    L = odeint(Harmonic_deriv, y_0, t, args=(w, damp), tfirst=True, rtol=1e-4)
     
-    return t, N
+    return L[:,0], L[:,1], t
 
 
 def Find_key(dict, value):
