@@ -70,11 +70,11 @@ v_0 = v_0
 $$
 
 $$
-x_{n+1} = x_n + \Delta t\,x_n
+x_{n+1} = x_n + \Delta t x_n
 $$
 
 $$
-v_{n+1} = v_n + \Delta t\,v_n
+v_{n+1} = v_n + \Delta t v_n
 $$
 
 ### RK2_Solver
@@ -97,7 +97,7 @@ def SHO_solver_RK2(x0, v0, tmin, tmax, nts, SHO_deriv):
 The recursively defined algorithm for RK2_solver is:
 
    $$
-   x_{n+\frac{1}{2}} = x_n + \frac{\Delta t}{2}\,v_n
+   x_{n+\frac{1}{2}} = x_n + \frac{\Delta t}{2}v_n
    $$
 
    $$
@@ -106,11 +106,11 @@ The recursively defined algorithm for RK2_solver is:
 
    
    $$
-   x_{n+1} = x_n + \Delta t\,v_{n+\frac{1}{2}}
+   x_{n+1} = x_n + \Delta t v_{n+\frac{1}{2}}
    $$
 
    $$
-   v_{n+1} = v_n + \Delta tA\left(x_{n+\frac{1}{2}}, v_{n+\frac{1}{2}}\right)
+   v_{n+1} = v_n + \Delta t A\left(x_{n+\frac{1}{2}}, v_{n+\frac{1}{2}}\right)
    $$
 
    where A is the acceleration.
