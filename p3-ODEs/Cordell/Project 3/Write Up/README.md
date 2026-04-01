@@ -101,7 +101,7 @@ The recursively defined algorithm for RK2_solver is:
    $$
 
    $$
-   v_{n+\frac{1}{2}} = v_n + \frac{\Delta t}{2}\,A(x_n,v_n)
+   v_{n+\frac{1}{2}} = v_n + \frac{\Delta t}{2}A(x_n,v_n)
    $$
 
    
@@ -110,7 +110,7 @@ The recursively defined algorithm for RK2_solver is:
    $$
 
    $$
-   v_{n+1} = v_n + \Delta t\,A\!\left(x_{n+\frac{1}{2}}, v_{n+\frac{1}{2}}\right)
+   v_{n+1} = v_n + \Delta tA\left(x_{n+\frac{1}{2}}, v_{n+\frac{1}{2}}\right)
    $$
 
    where A is the acceleration.
@@ -146,7 +146,7 @@ The verlet algorithm above is recursively defined as:
    $$
 
    $$
-   x_{n+1} = x_n + v_n\,\Delta t + \frac{1}{2}A(x_n,v_n)\,\Delta t^2
+   x_{n+1} = x_n + v_n\Delta t + \frac{1}{2}A(x_n,v_n)\Delta t^2
    $$
 
    $$
