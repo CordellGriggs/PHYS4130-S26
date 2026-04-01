@@ -225,13 +225,13 @@ Then, we will want to write this as a vector equation so that we know what the f
 ```math
 \frac{d}{dt}
 \begin{pmatrix}
-\f{x} \\
-\f{y}
+\x \\
+\y
 \end{pmatrix}
 =
 \begin{pmatrix}
-\f{y} \\
-\f{-\frac{b}{m} y - \frac{k}{m} x}
+\y \\
+\-\frac{b}{m} y - \frac{k}{m} x
 \end{pmatrix}.
 ```
 
