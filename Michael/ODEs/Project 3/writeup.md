@@ -1,9 +1,9 @@
 # Project 3
 ## Introduction
-Few areas of math enjoy such a privelleged position in physics as differential equations do. However, for all of their utility in modeling physical system, the average differential equation(s) that we encounter outisde of an introductory course lack any kind of analytic solution. This necessitates the development of numerical methods that can efficiently and accuratley approximate solutions to initial value problems. In this porject, we will examine different algorithms for solving ODEs and see how they solve the simple harmonic oscillator along with some other special cases.
+Few areas of math are as useful in physics as differential equations. However, for all of their utility in modeling physical system, the average differential equations that we encounter outisde of an introductory course lack any kind of analytic solution. This necessitates the development of numerical methods that can efficiently and accuratley approximate solutions to initial value problems. In this porject, we will examine different algorithms for solving ODEs and see how they solve the simple harmonic oscillator along with some other special cases.
 
 ## Algorithms and Theory
-We will first examine the different numerical methods that will be used. These functions were written to be highly general in their use case. The functions are able to take in lists of initial conditions and solve a system of coupled first order ODEs. The outputs are structured as lists of solution. For example, if you pass in lists of length n, then the functions output a list with the array of times as its first element, and a sequence of two element lists containing the phase space trajectories for the lists of initial conditions. They are all capable of solving a system of the form
+Equations of motion in physics are typically 2nd order ODEs. However, most ODE algorithms are dervied to solve systems of coupled first order equations. Therefore, the code has been written to solve problems of them form 
 
 ```math
 \dot{x} = f(t,x,y)
@@ -11,21 +11,32 @@ We will first examine the different numerical methods that will be used. These f
 ```math
 \dot{y} = g(t,x,y)
 ```
-The implementation can roughly be structured as 
+for some give initial conditon(s) on X and Y. A second order equation for X can be decompoed into a system of 1st order equations by letting Y be the time derivative of X and then back substituting. 
+```math
+\dot{x} = y
+```
+```math
+\dot{y} = g(t,x,y)
+```
+There are some nice features that have been built into the implementations that will be discsused. Seeing them here first will make understanding what comes next easier. For one, you are not limited to passing in one set of initial conditons. All of the solvers can take two lists (of equal length) for intial condtions and solve the ODE system for each of those and output the solutions. The other notable feature is how the solutions are strctured. To make the code similar, all functions out the solutions in the same structure. To see how that structure works, look at the sample code below that demonstrate how to use any of the methods. 
 ```python
+#list of initial condtions
 X_initial = [1, 2, 3, 4]
 Y_initial = [5, 6, 7, 8]
 
+#time range and resolution
 tmin = 0
 tmax = 1
 nts = 100
 
+#derivative structe the must be used
 def du_dt(t, U) #U = [X, Y] 
     X, Y = U
     dx_dt = f(t, X, Y)
     dy_dt = g(t, X, Y)
     return [dx_dt, dy_dt] #MUST be a list
 
+#solution
 sol = Method(X_initial, Y_initial, tmin, tmax, du_dt) #generic method
 
 #How to extract information from sol
@@ -39,7 +50,6 @@ Y2 = sol[2][1]
 
 X3 = sol[3][0]
 Y3 = sol[3][1]
-
 ```
 With a basic explanation how the methods will all be structured done, we can look at the different method that will be used. The first one is RK4(5). It belongs to a family of solvers known as Runge-Kutta (RK) methods. The explicit derivation is not of interest here, but a brief explanation of how this family of solvers works is useful. They are what's known as prediction corrector methods. Unlike bad solvers such as Euler's method, "predictor-corrector methods improve the approximation accuracy by querying the 𝐹 function several times at different locations (predictions), and then using a weighted average of the results (corrections) to update the state." RK4(5) is unique in that it is an adaptive method. It achieves by chagning the step size through comparing a 4th order step and a 5th order step. A python implementation is simple using the solve_ivp function from scipy.integrate. 
 
@@ -187,7 +197,7 @@ def Yoshida(X0, Y0, tmin, tmax, nts, du_dt):
 
         return solutions
 ```
-One last thing to note is the limits of these function. The way the RK4(5) and LSODA funtions are written, it is not possible to have a system where particles are couple together. This is because the functions merely loop over intial condtions and solve that particular problem. Since the the symplectic methods had to be written explicitly, they have much more freedom in what they can do. If you write your system correctly and express the derivative properly, these methods can treat the lists of initial conditions as interacting particles. Of course, if you instead want to solve the same problem for different sets of inital conditions, that is still possible too. You just don't couple your derivatives of one trajectory to the others. This makes them highly flexible! They take full advantage of the vectorization of numpy arrays. The symplectic methods can solve something like the SHO for multiple ICS up to the n-body problem for as many bodies as you input without changing the function at all. We will see all of these uses in the next sections.
+One last thing to note is the limits of these function. The way the RK4(5) and LSODA funtions are written, it is not possible to have a system where particles are couple together. This is because the functions merely loop over intial condtions and solve that particular problem. Since the the symplectic methods had to be written explicitly, they have much more freedom in what they can do. If you write your system correctly and express the derivative properly, these methods can treat the lists of initial conditions as interacting particles. Of course, if you instead want to solve the same problem for different sets of inital conditions, that is still possible too. You just don't couple your derivatives of one trajectory to the others. This makes them highly flexible! They take full advantage of the vectorization of numpy arrays. The symplectic methods can solve something like the SHO for multiple ICS up to the n-body problem for as many bodies as you input without changing the function at all. We will see all of these uses in the following sections.
 
 ## Simple Harmonic Oscillator
 
