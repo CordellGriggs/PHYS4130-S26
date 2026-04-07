@@ -88,6 +88,7 @@ plt.imsave(f'demo_figure_N{particles}_direct.png',
 
  - [The Optimization Ladder (Python)](<https://cemrehancavdar.com/2026/03/10/optimization-ladder/>)
  - [Why is Python so Slow?](https://tonybaloney.github.io/posts/why-is-python-so-slow.html)
+ - [Slow and Fast Random Integers in Python](https://eli.thegreenplace.net/2018/slow-and-fast-methods-for-generating-random-integers-in-python/)
 
 # Random Number Generation with Python Iterators
 
