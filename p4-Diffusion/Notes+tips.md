@@ -88,3 +88,29 @@ plt.imsave(f'demo_figure_N{particles}_direct.png',
 
  - [The Optimization Ladder (Python)](<https://cemrehancavdar.com/2026/03/10/optimization-ladder/>)
  - [Why is Python so Slow?](https://tonybaloney.github.io/posts/why-is-python-so-slow.html)
+
+# Random Number Generation with Python Iterators
+
+NumPy is generally overkill for the RNG work this project requires. If you *want* to use NumPy, you follow the best practices laid out in this [Scientific Python blog](https://blog.scientific-python.org/numpy/numpy-rng/), which has you create a python generator first, and then call that generator to create random numbers.
+
+```python
+import numpy as np
+
+rng = np.random.default_rng()
+rng.random()  # generate a floating point number between 0 and 1
+int(4*rng.random())  # generate a random integer between 0 and 3
+```
+You can specify a **seed**, and you can specify the distribution you want the RNG to sample when you create it. NumPy has excellent documentation for this. It's probably faster to simply use python's random library:
+
+```python
+import random
+
+random.random()
+```
+
+This problem is much better defined! When you step the particle, you are stepping it in either 4 or 8 directions, so you can (and should) use *getrandbits* instead. This is 3-20x faster than the earlier methods.
+```python
+import random
+
+random.getrandbits(2)
+```
