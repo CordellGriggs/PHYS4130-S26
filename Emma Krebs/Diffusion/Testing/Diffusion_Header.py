@@ -186,11 +186,11 @@ def find_node(root, point, n):
     while node.leaf != True:
         value = 0
 
-        if  point[0] > node.center[0]:
+        if  point[0] >= node.center[0]:
             value |= 4
-        if point[1] > node.center[1]:
+        if point[1] >= node.center[1]:
             value |= 2
-        if point[2] > node.center[2]:
+        if point[2] >= node.center[2]:
             value |= 1
         
         # Example: Say we said yes to all three if statements. Then we have 7 and that represents
@@ -221,7 +221,7 @@ def stickiness(location_list, particle):
     close_distance = []
     for location in location_list:
         distance = np.sqrt((location[0] - particle.location[0])**2 + (location[1] - particle.location[1])**2 + (location[2] - particle.location[2])**2)
-        if distance <= 1.5:
+        if distance <= 3:
             close_distance.append(location)
 
     # If there was nothing close enough, return false
@@ -231,6 +231,7 @@ def stickiness(location_list, particle):
         for close_loc in close_distance:
             prob = particle.probability
             if random.uniform(0, 1) <= prob:
+                print("Sticky")
                 return True
             
         return False
