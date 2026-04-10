@@ -9,11 +9,12 @@ class Node:
         an empty array of children. After it is subdivided, this children array will be updated with more nodes.
     '''
 
-    def __init__(self, center, grid, depth):
+    def __init__(self, center, grid, depth, parent):
         self.center = center
         self.grid = grid
         self.depth = depth
         self.leaf = True
+        self.parent = parent
         self.children = [None, None, None, None, None, None, None, None]
         self.particles = [] # Each Node will only hold one particle at a time for its leaves
 
@@ -27,6 +28,7 @@ class Particle:
     def __init__(self, location, probability):
         self.location = location
         self.probability = probability
+        self.parent = None
         self.stuck = False
 
     def random_walk(self):
@@ -115,7 +117,7 @@ def subdivide(node, n):
                     center_y = node.center[1] + dy
                     center_z = node.center[2] + dz
 
-                    node.children[child_index] = Node([center_x, center_y, center_z], grid, depth)
+                    node.children[child_index] = Node([center_x, center_y, center_z], grid, depth, node)
                     child_index += 1
     print("Children created")
 
@@ -141,9 +143,9 @@ def generation_sphere(current_maximum, generation_distance, center):
     # From a source in document to create a sphere with equally likely random points on it
     theta = 2*np.pi*u
     phi = np.arccos(1 - 2*v)
-    px = round(np.sin(phi) * np.cos(theta) * radius + center[0])
-    py = round(np.sin(phi) * np.sin(theta) * radius + center[1])
-    pz = round(np.cos(phi) * radius + center[2])
+    px = int(np.sin(phi) * np.cos(theta) * radius + center[0])
+    py = int(np.sin(phi) * np.sin(theta) * radius + center[1])
+    pz = int(np.cos(phi) * radius + center[2])
 
     location = [px, py, pz]
 
@@ -172,3 +174,126 @@ def get_child_index(node, particle):
         value |= 1
     
     return value
+    
+
+def find_node(root, point):
+    '''
+        Given a point this finds out with leaf node it is in and returns that node.
+
+        Args:
+            root (Object): Root node that is connected to all other nodes. Can transverse to find leaves.
+            point (Array): Location of neighborhood. Want to check if there's any particles around.
+        
+        Returns:
+            node (Object): Returns node of a certain location
+            value (int): Index of child node for point location
+    '''
+
+    # From the wiki, we can use the color quantization program which determines the child node 
+    # via the formula 4r + 2g + b, but here instead of red, green, and blue we can use 
+    # our postive and negative 3 directions. Thus
+    node = root
+
+    value = 0
+    # This will loop until it finds the leaf node to extract the particles
+    while node.leaf != True:
+        value = 0
+
+        if  point[0] >= node.center[0]:
+            value |= 4
+        if point[1] >= node.center[1]:
+            value |= 2
+        if point[2] >= node.center[2]:
+            value |= 1
+        
+        # Example: Say we said yes to all three if statements. Then we have 7 and that represents
+        # our positive quadrant for this center. 
+
+        found_node = node.children[value]
+
+        if found_node is None:
+            return node, value
+        node = found_node
+
+    return node, value
+
+
+def get_neighbors(root, node):
+    '''
+        Grabs the surrounding neighbors. Includes diagonals as well for a total of 26.
+    '''
+    neighborhood = []
+    # Sharing the same parent
+    parent = node.parent
+    if parent is not None:
+        for child in parent.children:
+            if child is not None and child is not node:
+                neighborhood.append(child)
+
+    # Next door nodes
+    offsets = [-node.grid[0], 0, node.grid[0]]
+
+    for i in offsets: # For x coordinate
+        for j in offsets: # For y coordinate
+            for k in offsets: # for z coordinate
+                if i == j == k == 0: # Skip this one because its where the particle is
+                    continue
+                else:
+                    grid_x = node.center[0] + i
+                    grid_y = node.center[1] + j
+                    grid_z = node.center[2] + k
+
+                    location = [grid_x, grid_y, grid_z]
+
+                    found_node, _ = find_node(root, location)
+                    if found_node is not None and found_node is not node:
+                        if found_node not in neighborhood:
+                            neighborhood.append(found_node)
+
+    return neighborhood
+
+
+def stickiness(location_list, particle):
+    '''
+        The function that determines if a particle will stick. 
+
+        Args:
+            location_list (Array): Array of all neighborhood particle locations
+            particle (Object): The object of our moving particle.
+
+        Returns:
+            Boolean: Returns true if particle sticks. Returns false if it doesn't.
+            Array: Array of the location of connection for this particle to stick to.
+
+    '''
+    prob = particle.probability
+    # Find all the particles that are close enough to stick
+    px, py, pz = particle.location
+    for lx, ly, lz in location_list:
+        dx = lx - px
+        dy = ly - py
+        dz = lz - pz
+
+        if dx*dx + dy*dy + dz*dz <= 1:
+            if random.uniform(0, 1) <= prob:
+                print("Sticky")
+                return True, (lx, ly, lz)
+            
+    return False, None
+    
+
+def particle_from_center(particle, center):
+    '''
+        Measures particle from center.
+
+        Arg:
+            particle (object): Particle being measured
+            center (array): Center of grid
+
+        Returns: 
+            distance (int): Distance from center
+    '''
+    location = particle.location
+
+    distance = np.sqrt((location[0] - center[0])**2 + (location[1] - center[1])**2 + (location[2] - center[2])**2)
+    return distance
