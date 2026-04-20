@@ -128,11 +128,42 @@ def sticking_2Dt(px, py, grid, stickiness):
             if grid[i, j] > 0:
                 return ra.random() <= stickiness
     return False
+
+# resetting inital variables
+n = 200
+grid = np.zeros((n, n))
+center = n // 2
+grid[center, center] = 1
+num_p = 500
+# spawn, delete = n // 2 - 10, n // 2 + 2
+
+for i in range(num_p):
+    theta = ra.uniform(0, 2 * np.pi)
+    px, py = int(center + spawn * np.cos(theta)), int(center + spawn * np.sin(theta))
+    stuck = False
   
+    while not stuck:
+        px, py = move_2Dt(px, py)
+        # if it hits the boundary
+        if px < 1 or px >= n-1 or py < 1 or py >= n-1:
+            px, py = int(center + spawn * np.cos(theta)), int(center + spawn * np.sin(theta))
+            continue
+
+        if sticking_2Dt(px, py, grid, stickiness):
+            grid[px, py] = i + 1
+            stuck = True
+            dist = np.sqrt((px - center)**2 + (py - center)**2)
+            if dist + 2 > spawn: spawn = dist + 2
+            delete = spawn + 5
+
+# plot
+plt.imshow(grid, cmap='magma')
+plt.show()
+
 # ###
 # Extension 3: 3D Lattice
 
-def move_3d(px, py, pz):
+def move_3D(px, py, pz):
   # aimless wandering
   direction = ra.randint(0, 5)
   if direction == 0: 
@@ -150,18 +181,39 @@ def move_3d(px, py, pz):
     
   return px, py, pz
 
+# redefine initial variables
+n = 100 
+grid = np.zeros((n, n, n))
+center = n // 2
+grid[center, center, center] = 1
+num_p = 500 
 
+for i in range(num_p):
+    # spawn in a sphere
+    phi = ra.uniform(0, 2 * np.pi)
+    costheta = ra.uniform(-1, 1)
+    theta = np.arccos(costheta)
+    px = int(center + spawn * np.sin(theta) * np.cos(phi))
+    py = int(center + spawn * np.sin(theta) * np.sin(phi))
+    pz = int(center + spawn * np.cos(theta))
+    stuck = False
+    while not stuck:
+        px, py, pz = move_3D(px, py, pz)
+        # if it hits a boundary
+        if px < 1 or px >= n - 1 or py < 1 or py >= n - 1 or pz < 1 or pz >= n - 1:
+            break 
+        # Sticking logic using a 3D slice
+        if np.any(grid[px-1:px+2, py-1:py+2, pz-1:pz+2] > 0):
+            if ra.random() <= stickiness:
+                grid[px, py, pz] = 1
+                stuck = True
+                dist = np.sqrt((px-center)**2 + (py-center)**2 + (pz-center)**2)
+                if dist + 2 > spawn: spawn = dist + 2
 
-
-
-
-
-
-
-
-
-
-
-
-
+# 3D Plotting
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+z, y, x = np.nonzero(grid)
+ax.scatter(x, y, z, c=z, cmap='magma', s=1)
+plt.show()
 # ###
