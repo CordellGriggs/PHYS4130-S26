@@ -14,19 +14,19 @@ Diffusion-limited aggregation (DLA) is the process where particles undergo a ran
 
 <img src="Gifs_and_Images/Of7_p0001_15h.jpg" width="400"> <img src="Gifs_and_Images/DLA_3D.jpg" width="600">
 
-*Fig. 1) Left image is of a basic 2D DLA and the right is a 3D DLA.*
+*Fig. 1) The left image is of a basic 2D DLA and the right is a 3D DLA.*
 
 It is important to note that DLA programs are not limited to the circular and spherical shapes above. They can adhere to straight lines, create Brownian Trees, and have many other shapes:
 
 <img src="Gifs_and_Images/Lungs_FLA.png" width="400"> <img src="Gifs_and_Images/Rec8_3kc2p.jpg" width="600">
 
-*Fig. 2) Miscellanous DLA aggregations of different shapes. The first is just a creative project from a user on X and the second is a Brownian Tree from the WIki*
+*Fig. 2) Miscellaneous DLA aggregations of different shapes. The first is just a creative project from a user on X and the second is a Brownian Tree from the WIki*
 
 DLAs are not solely a computational novelty either. They often appear in nature! For example, mineral deposits, fungi, lightning bolts, snowflakes, and even ants biting off wall paint all follow a form of diffusion-limited aggregation.
 
 <img src="Gifs_and_Images/Ants_Eat_Paint_YUM.jpg" width="400"> <img src="Gifs_and_Images/DLA_Cluster.jpeg" width="600">
 
-*Fig. 3) Left image is DLA pattern from ants eating paint and right image is a DLA pattern grown from a copper sulfate solution in an electrodeposition cell.*
+*Fig. 3) The left image is a DLA pattern from ants eating paint and the right image is a DLA pattern grown from a copper sulfate solution in an electrodeposition cell.*
 
 There are three main factors that affect how an aggregate forms: seed particle location, stickiness probability, and what we consider ‘neighbors’. Stickiness probability determines how likely a particle will become a part of the aggregate when encountering a ‘stuck’ particle. High probabilities mean it will most likely stick to the first particle it encounters, meaning we have thinner, elongated branches. Lower probabilities allow more time for the particle to travel deeper into the structure on its random walk, so for the same number of particles these structures tend to be condensed with little to no branches (See GIFs and Images section for more!). This also means that low stickiness eats up computation time because of the increased iterations of the particles’ random walks. Neighbor definitions can also change our aggregate branch shapes. For a 2D space, if we only consider the vertical and horizontal neighbors around our particle, we can get more rigid, cardinal growth along our axes compared to an eight neighbor approach. This program utilizes all eight neighbors for the 2D space. Finally, a seed particle is what determines the start of our accumulation for the aggregation. It is placed at a location to become our source point for the following particles to stick to, and it doesn’t necessarily have to be directly in the center of the particles’ generation range. 
 
@@ -134,7 +134,7 @@ if touching and neighbor_count == 1: # Avoid overfilling and focus on tip growth
 
 Here we find that Diffusion_Main.py cycles through the neighbors, checking each grid position if any of the values equal 1. If it does, that means there's a possible particle to stick to, so it tells the program that the moving particle is touching the aggregate and should call the particle.sticky() function to see if it sticks. 
 
-The final noteworthy function is the capacity_dimension (and by subsequent relation, capacity_dimension_vs_radii). We see from a snippet of the function below that we are finding sizes of boxes that extend to the largest distance of our aggregate. Then, we sort through the points of our 'stuck' particles and see how many boxes contain particles for sequentially bigger boxes. Taking the log of both the number of particles and sizes, since they grow expoentitally, we can polyfit the middle data points to find our slope, and thus our capacity dimension. We do only the middle because the ends vary and negatively impact our calculation of the dimension. The outside ends are too sparse since its the part that of the aggregate that is growing, and the center is too dense because of the limited space. Thus, we only want that stable middle range. 
+The final noteworthy function is the capacity_dimension (and by subsequent relation, capacity_dimension_vs_radii). We see from a snippet of the function below that we are finding sizes of boxes that extend to the largest distance of our aggregate. Then, we sort through the points of our 'stuck' particles and see how many boxes contain particles for sequentially bigger boxes. Taking the log of both the number of particles and sizes, since they grow exponentially, we can polyfit the middle data points to find our slope, and thus our capacity dimension. We do only the middle because the ends vary and negatively impact our calculation of the dimension. The outside ends are too sparse since it's the part that of the aggregate that is growing, and the center is too dense because of the limited space. Thus, we only want that stable middle range. 
 
 ```python
 
@@ -161,7 +161,7 @@ while biggest > s:
     return D, log_sizes, log_N
 ```
 
-To a lesser degree of importance, we also have the generation_sphere and particle_from_center. These are both simpler in design. The generation_sphere generates a random location for a particle to spawn in and particle_from_center calculates the distance between a particle's location and the center. The latter is important for recalculating the aggregate's furthest particle from the center and whether a it is outside of the kill radius. 
+To a lesser degree of importance, we also have the generation_sphere and particle_from_center. These are both simpler in design. The generation_sphere generates a random location for a particle to spawn in and particle_from_center calculates the distance between a particle's location and the center. The latter is important for recalculating the aggregate's furthest particle from the center and whether it is outside of the kill radius. 
 
 Now we know a little more about the program, let us look at our results!
 
@@ -193,13 +193,13 @@ We can see that as our probability decreases, our branches get thicker and the p
 
 ### Capacity Dimension and Topological Dimension
 
-As we mentioned before, the capacity dimension represents the number of particles inside of our aggregate's maximum size. In other words, it describes the density of fractal patterns for our problem. The topological dimension is what we traditionally think of for dimension, so for a 2D space it would be equal to 2. What does the capacity dimension look like in our 2D DLA then? We must consider our stickiness probabilities again. We saw previously for high probability there were sparse, branching aggregations while small probabilities had compact, more circular structures. We can measure the capacity dimension over radius such that we can see this relationship:
+As we mentioned before, the capacity dimension represents the number of particles inside of our aggregate's maximum size. In other words, it describes the density of fractal patterns for our problem. The topological dimension is what we traditionally think of as dimension, so for a 2D space it would be equal to 2. What does the capacity dimension look like in our 2D DLA then? We must consider our stickiness probabilities again. We saw previously for high probability there were sparse, branching aggregations while small probabilities had compact, more circular structures. We can measure the capacity dimension over radius such that we can see this relationship:
 
 <img src="Gifs_and_Images/RadiiDimension.png" width="400">
 
 *Fig. 7) Fractal Dimension vs Radii*
 
-While this is a little jittery, which I suspect is due to my 5000 particle count, we do see a stablization on the right side of the graph with clear distinction between our probabilities. For decreasing stickiness probability we see an increasing capacity dimension vs radii. We can also study this on a global scale where instead of radii we look at the entire aggregation:
+While this is a little jittery, which I suspect is due to my 5000 particle count, we do see a stabilization on the right side of the graph with clear distinction between our probabilities. For decreasing stickiness probability we see an increasing capacity dimension vs radii. We can also study this on a global scale where instead of radii we look at the entire aggregation:
 
 <img src="Gifs_and_Images/GlobalDimension.png" width="400">
 
@@ -215,15 +215,17 @@ Where the slopes of these linear lines are our capacity dimension. Again, we see
 
 ### How does behavior change in 3D
 
-The 3D program, while not too logically different, has a few changes to its behavior and generation time. Since particles are not limited to only a 2D space to move, computation time significantly increased because they can randomly walk in three different directions. Additionally, there was some minor changes to the arrays and generation sphere. The generation sphere is now an actual sphere instead of just a circle, and considers an additional randomly chosen angle. Then, of course, the arrays were increased to three dimensions. Another major change is that the random function favors the poles of a sphere if you are not careful, which we can see in the following image and animation. A stickiness probability of 1 with 3000 particles was generated and is shown below:
+The 3D program, while not too logically different, has a few changes to its behavior and generation time. Since particles are not limited to only a 2D space to move, computation time significantly  increases because they can randomly walk in three different directions. Additionally, there were some minor changes to the arrays and generation sphere. The generation sphere is now an actual sphere instead of just a circle, and considers an additional randomly chosen angle. Then, of course, the arrays were increased to three dimensions. Another major change is that the random function favors the poles of a sphere if you are not careful, which we can see in the following image and animation. A stickiness probability of 1 with 3000 particles was generated and is shown below:
 
+<img src="3D_DLA/last_frame1.png" width="400"> <img src="3D_DLA//animation_1.gif" width="600">
 
+*Fig. 10) 3D Aggregation that favors the poles.*
 
 ### 
 
 ## Languages, Libraries, Lessons Learned
 
-The main language was python and I used the libraries numpy, matplotlib, and os. I developed my skills with using object and classes in python and creating images and animations for aggregations. In particular, I learned how to use the os to more effectively store the .gifs and .pngs. I also learned how to do octrees, but they unfortunately did not end up working for this particular program (but they might be useful for my project over the summer!).
+The main language was python and I used the libraries numpy, matplotlib, and os. I developed my skills with using objects and classes in python and creating images and animations for aggregations. In particular, I learned how to use the os to more effectively store the .gifs and .pngs. I also learned how to do octrees, but they unfortunately did not end up working for this particular program (but they might be useful for my project over the summer!). On that note, ignore the Code_Graveyard. It is filled with ghosts of past aggregate lives. 
 
 ## Timekeeping
 
