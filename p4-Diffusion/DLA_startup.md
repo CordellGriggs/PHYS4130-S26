@@ -42,7 +42,7 @@ There has been a *lot* of work since then, but this is already a little overkill
 
 ### Final Draft
 > [!IMPORTANT]
-> 2pm on ???
+> 2pm on April 23
 > This is 1 hour before the beginning of class.
 
 ## Program specification:

@@ -36,13 +36,12 @@ Now that we know what a DLA is and how different factors can affect them, let us
 ## Summary of Code
 
 ### Overview
--Explain basic overview of code. Maybe include a drawing of how everything is connected
-[Drawing of how everything is connected]
 
-### Initial Idea
--Explain where your initial idea to use octree came from (Game design)
--Explain how octrees work in 3D space [Include image of 3D octree]
--Explain the two main classes that make up most of the code: Particle and Node
+This DLA program is made up of three files: Capacity_Dimension.py, Diffusion_Main.py, and Diffusion_Functions.py. Capacity_Dimension is what dictates how many particles will run and with what probability of stickiness they will adhere to the aggregate. To calculate the capacity dimension (a measure of the number of particles compared to the aggregate’s cluster size, or how many particles are packed into the size of the cluster), its main purpose is to streamline the generation of aggregations for different parameters without looping through the entire Diffusion_Main.py. This is so we can easily compare stickiness probability to the capacity dimension. Diffusion_Main.py, as seen by its namesake, is the main contributor to creating these aggregations. It loops through the number of particles and calls all the necessary functions from Diffusion_Functions.py to determine which particles should be added to our cluster. It also animates and saves a .gif and .png for the aggregations. Finally, DIffusion_Functions.py is where the inner-workings of the diffusion program are stored. It contains all the objects and functions for this program to work. 
+
+The main idea of this code is that it takes a given number of particles and creates an array the size of half the number of particles by half the number of particles. All stuck particles will be given a designation equal to one such that we can track the positions of the aggregate through the 0’s and 1’s in the array. A seed particle is spawned directly in the center of the grid. Then, the program enters a while loop that will continue until the cluster has the given number of particles attached to the aggregate. New objects labeled particles are generated on the surface of a sphere through a function called the generation sphere, defined by a user set distance from the maximum size of the aggregate, and these particles keep track of their own location and whether one is stuck or unstuck through their object attributes. It can also call an object defined function to randomly walk itself and directly update its location. It continues this until either 1) It wanders too far from the aggregation and gets deleted by a defined kill distance, or 2) Has a neighboring ‘stuck’ particle. If it does find a neighbor, it calls another object defined function to determine if it sticks depending on the stickiness probability. If it succeeds, the stuck attribute is updated and we can add one to the total number of stuck particles for our aggregate. A new kill and generation distance is created based on the furthest particle, and the cycle continues. Once the cluster is complete, the growth is animated and saved with the last frame being turned into a .png. The aggregation is now complete, and the capacity dimension can now be found. 
+
+Next, let us take a closer look at some of the more important functions!
 
 ### Main Body and Functions (Longest section)
 -Explain the process of the steps of main.py 
@@ -66,10 +65,7 @@ Now that we know what a DLA is and how different factors can affect them, let us
 ### Capacity Dimension and Topological Dimension
 - Answer to questions
 
-## Extensions (Doing two)
-
-### Generating long DLA Animation for 1e6 Particles
--Talk about improvements made to octree (Only found out later that octrees are good for C++ and theoretically python, but not in practice).
+## Extensions
 
 ### How does behavior change in 3D
 -Program will be initially in 3D, so need to find another source to compare to
@@ -83,7 +79,7 @@ Now that we know what a DLA is and how different factors can affect them, let us
 
 ## Timekeeping
 
-4/9/26: 14 hours
+4/9/26: 36 hours
 
 ## Sources
 
