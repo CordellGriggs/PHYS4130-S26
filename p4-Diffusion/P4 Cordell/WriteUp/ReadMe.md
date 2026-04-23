@@ -13,11 +13,11 @@ where $D_{C}$ is the capacity dimension, $\epsilon$ is the size of boxes, and N 
 
 Another useful fractal dimension is the mass-radius fractal dimension. It is defined by
 $$
-N(r) = r^{D}\qquad(2)
+N(r) = r^{D_{r}}\qquad(2)
 $$
-where $r$ is the distance from the center of the aggregate, $N(r)$ is the number of occupied elements within radius $r$, and $D$ is the fractal dimension. This dimension essentially describes the density of the aggregate. It has a maximum value of 2 in 2D space which would result from a filled in circle.
+where $r$ is the distance from the center of the aggregate, $N(r)$ is the number of occupied elements within radius $r$, and $D_{r}$ is the fractal dimension. This dimension essentially describes the density of the aggregate. It has a maximum value of 2 in 2D space which would result from a filled in circle.
 
-In this project, we model diffusion limited aggregation for a 2D system with a uniform flux of incoming particles from an infinite radius. We evaluate the capacity dimension of our simulated aggregate at different values of stickiness and radius. Then, we compare our estimated value to its expected value. In addition, we evaluate the effect of letting the spawn radius approach the aggregate.
+In this project, we model diffusion limited aggregation for a 2D system with a uniform incoming flux of particles from an infinite radius. We evaluate the capacity dimension of our simulated aggregate at different values of stickiness and radius. Then, we compare our estimated value to its expected value. In addition, we evaluate the effect of letting the spawn radius approach the aggregate.
 
 # Procedure 
 Our simulation code is described in a step by step manner below containing the main steps to model DLA. We use a boolean array to model 2D space in which each element's truth value corresponds to whether it is occupied or not. Next, we define a function that spawns particles on an approximately circular parameter centered around the aggregate. The spawn probability is uniformly distributed about the circle. Then, a kill radius is implemented to improve runtime efficiency. Lastly, random.getrandbits() is used to implement random walks, and the 3x3 neighborhood around the particle is checked for the seed after each walk. This process is repeated until the particle sticks to the aggregate.
@@ -107,13 +107,13 @@ The kill function prevents particles from wandering far away from the circle. Th
 ```
 The random walk algorithm chooses a random direction for the particle to walk. The random.getrandbits() function is used for optimal runtime. Then, the 4 neighboring elements are checked if they are part of the aggregate, and the current position is required to not already be occupied. The particle takes random walks until it reaches the aggregate. Once the particle reaches the aggregate, it has a chance of sticking. And once the particle sticks, the loop breaks.
 
-# Analysis 
+# Results & Analysis
 
-Animation: I don't think I can embed a mp4?
+DLA Animation: link
 
 -------
 
-Plots... notice they look like fractals...
+A heat map of particle ages can be visually inspected to serve as sort of a preliminary analysis. Fig. 1 shows heat maps for 50,000 and 20,000 particles. We observe that as the distance from the center of the aggregate increases, the particles become more recent. Additionally, the more recent particles tend to stick on the tips of the branches. Both of these observations match what we should expect. Next, the capacity and mass-radius fractal dimensions are estimated. A simulation of 50,000 particles yielded $D_{C}$ = 1.47 and $D_{r}$ = 1.61 as shown in Fig. 2. We further analyzed these capacity dimensions in regards to their behavior as a function of sticking probability, $S$. We observed a general trend for both fractal dimensions to increase as $S$ decreases illustrated in Fig. 3. Furthermore, this trend appears linear for $S$ > 0.5. However, as $S$ approaches zero the fractal dimensions increase dramatically. Log-log plots reveal an exponential relationship. The log-log plot of $S$ vs $D_{C}$ has a slope of $m$ = -0.03. Meanwhile, the log-log plot of $S$ vs $D_{r}$ has a linear slope of $m$ = -0.02. Lastly, we analyzed the fractal dimensions as a function of number of particles. As shown in Fig. 4, the fractal dimensions remain relatively consistent across various values of N. Additionally, there is a subtle trend that as the number of particles increases, the fractal dimensions increase in the direction approaching their expected values.
 
 <p align="center">
   <img src="50k_1.47CD_1.67FD.png" alt="Figure 1" width="45%">
@@ -121,65 +121,77 @@ Plots... notice they look like fractals...
 </p>
 
 <p align="center">
-  <em>Left: Aggregate for 50,000 particles at a sticking probability of 1. Its estimated capacity and mass-radius fractal dimensions are 1.47 and 1.67 respectively. Right: Aggregate for 20,000 particles at a sticking probability of 1. Its estimated capacity and mass-radius fractal dimensions are 1.46 and 1.61 respectively.</em>
+  Figure 1: <em>Left: Aggregate for 50,000 particles at a sticking probability of 1. Its estimated capacity and mass-radius fractal dimensions are 1.47 and 1.67 respectively. Right: Aggregate for 20,000 particles at a sticking probability of 1. Its estimated capacity and mass-radius fractal dimensions are 1.46 and 1.61 respectively.</em>
 </p>
---------------------------------------------------------------------
+__________________________________________________________________________________________________________________
 
-Analysis procedure for CD and FD...
-
-Fig: Capacity Dimension Plot (Maybe Dual plot this with the one below)
 <p align="center">
-  <img src="50k_1.47CD.png" alt="Figure 1" width="70%">
+  <img src="50k_1.47CD.png" alt="Figure 3" width="45%">
+  <img src="50k_1.67FD.png" alt="Figure 4" width="45%">
 </p>
 
 <p align="center">
-  <em>Capacity dimension estimation for 50,000 particles at a sticking probability of 1. </em>
+  Figure 2: <em>Left: Capacity dimension estimation for 50,000 particles at a sticking probability of 1. Right: The radius-mass fractal dimension of the aggregate generating by 50,000 particles at a sticking probability of 1. </em>
 </p>
----------------------------------------
-
-Fig: Radius Fractal Dimension
-<p align="center">
-  <img src="50k_1.67FD.png" alt="Figure 1" width="70%">
-</p>
+__________________________________________________________________________________________________________________
 
 <p align="center">
-  <em>The radius-mass fractal dimension of the aggregate generating by 50,000 particles at a sticking probability of 1. </em>
-</p>
-
-
-------------------------------------------
-Stickiness Analysis... density, runtime...
-
-Fig: S vs Capacity Dimension (Maybe dual plot this with the one below)
-<p align="center">
-  <img src="CDvS_fitted.png" alt="Figure 1" width="70%">
+  <img src="CDvS_fitted.png" alt="Figure 5" width="45%">
+  <img src="SvFD.png" alt="Figure 6" width="45%">
+  <img src="log_S_CD.png" alt="Figure 7" width="45%">
+  <img src="log_S_FD.png" alt="Figure 8" width="45%">
 </p>
 
 <p align="center">
-  <em>Sticking probability vs Capacity Dimension. The capacity dimension tends to get larger for lower sticking probability. </em>
+  Figure 3: <em>Left: Sticking probability vs Capacity Dimension. The capacity dimension tends to get larger for lower sticking probability. Right: Sticking probability vs Radius-mass fractal Dimension. The fractal dimension tends to get larger for lower sticking probability.</em>
 </p>
 
-------------------------------------------
-Fig: S vs Radius Fractal Dimension
 
-<p align="center">
-  <img src="SvFD.png" alt="Figure 1" width="70%">
-</p>
-
-<p align="center">
-  <em>Sticking probability vs Radius-mass fractal Dimension. The fractal dimension tends to get larger for lower sticking probability. </em>
-</p>
 
 -----------------------------------
-Maybe a short runtime analysis demonstration
-```python
-```
+
+<p align="center">
+  <img src="N_vs_CD.png" alt="Figure 9" width="45%">
+  <img src="N_vs_FD.png" alt="Figure 10" width="45%">
+  <img src="log_N_vs_CD.png" alt="Figure 11" width="45%">
+  <img src="log_N_vs_FD.png" alt="Figure 12" width="45%">
+</p>
+
+<p align="center">
+  Figure 4: <em>Left: Number of Particles vs Capacity Dimension. The capacity dimension subtly increases with N in a consistent and predictable manner. Right: Number of Particles vs Radius-mass fractal Dimension. The fractal dimension seems to subtly approach its expected value as N increases.</em>
+</p>
+
 # Conclusions
+Diffusion-limited aggregation is a process in which particles undergoing Brownian motion encounter a seed and form an aggregate. This process can be modeled using a random walk algorithm, and a kill radius should be implemented to optimize runtime. Furthermore, fractal dimensions are metrics that describe the density of a fractal. The estimated fractal dimensions of a model can be estimated and compared to their expected values to analyze the accuracy of a model.
+
+Our model simulates a uniform one-way flux of incoming particles from infinity. A simulation of 50,000 particles yielded $D_{C}$ = 1.47 and $D_{r}$ = 1.67. In comparison its the expected value of 1.7, our estimated value of $D_{C}$ is noticeably off as it barely falls within 15% error. This supports the idea that our model is not completely accurate or that there is an error in our estimation of $D_{C}$. On the other hand, our estimation of $D_{r}$ lies comfortably within 5% error. This alludes to the idea that our model is fairly accurate. Additionally, these fractal dimensions grow with N or r with slope/rate. 
+
+Altogether, we cannot confidently say that our model is highly accurate as our estimated $D_{C}$ falls outside of 5% error. However, we do believe there is a plausible argument to be made for some high degree of accuracy that is supported by our estimation of $D_{r}$, its consistency across different numbers of particles, and its tendency to increase towards its expected value as the number of particles increases.
+
+
 
 # References
-[1]
+[1] [Diffusion-Limited Aggregation, a Kinetic Critical Phenomenon (1981 PRL)](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.47.1400)
 
 # Appendix
+## Extension 1
+## Extension 2
+
+### Attribution
+[Diffusion-Limited Aggregation, a Kinetic Critical Phenomenon (1981 PRL)](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.47.1400)
+
+Some Stuff on Fractal Dimension:
+
+The stack overflow link talks about the mass-radius estimation for fractal dimension.
+https://stackoverflow.com/questions/76326172/fractal-dimension-with-the-mass-radius-method
+
+https://en.wikipedia.org/wiki/Fractal_dimension#Examples
+### Timekeeping
+I didn't keep a log but I can very confidently say I spent upwards of 20 hours total. Unfortunately, I spent the majority chunk of this time optimizing my code for run time and my 1 million particles still hasn't finished.
+### Languages, Libraries, Lessons Learned
+I used python with standard numpy and matplotlib. I also used random, and %timeit to profile and optimize my code. I learned a lot about profiling/ runtime optimization and fractal dimensions.
+
+
 ### Changelog Summary
 The code described above took a long time to optimize the runtime for large N. Below, we share the trials and errors that led up to the code above.
 #### Periodic Boundary Conditions
