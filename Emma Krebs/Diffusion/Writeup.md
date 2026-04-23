@@ -42,8 +42,50 @@ The main idea of this code is that it takes a given number of particles and crea
 
 Next, let us take a closer look at some of the more important functions!
 
-### Main Body and Functions (Longest section)
+### Important Functions
 
+There are a few important functions to note for this program. The main three that are integral for getting a working program are: class Particle and its functions, get_neighbors, and capacity_dimension. Let us start with the star of the show, class Particle. Particle objects contain a function that defines its initial values which include location, probability, and whether it has stuck to the aggregate yet. These are defined below.
+
+```python
+
+class Particle:
+    '''
+        Class: Particle
+        Description: Particle object that stores location, age, and probability. Can call a random walk on itself
+        and store the data.
+    '''
+    def __init__(self, location, probability):
+        self.location = location
+        self.probability = probability
+        self.stuck = False
+```
+We can initialize location with the randomly generated location from our generation_sphere and the probability with the value from Capacity_Dimension.py. The attribute self.stuck always starts as false and is only updated once the particle sticks to the aggregate. The next important function inside of class Particle is the random_walk. 
+
+```python
+
+def random_walk(self):
+        dx, dy = random.choice([[-1, 0], [0, 1], [0, -1], [1, 0]])
+        self.location[0] += dx
+        self.location[1] += dy
+```
+
+Here we make a random choice between four possible directions of movement and let that array equal our change in x and y directions. The object then accesses its own attribute to directly update this movement for its location. The final definition function that is important to note is the sticky function.
+
+```python
+
+def sticky(self):
+        # This particle has the potential to get stuck. Check all particles nearby. 
+
+        prob = self.probability
+        if random.uniform(0, 1) <= prob:
+            return True
+            
+        return False # It was not stuck
+```
+
+This function accesses its probability and randomly generates a value between 0 and 1. If this value is smaller than or equal to the sticky probability the function returns true, updating the stuck parameter to be true. This is what ends our loop of random walks for a particle and thus is very important to moving onto the next particle. Otherwise, the function returns false and the random walks continue. 
+
+The next important function is the get_neighbors definition. This is 
 
 ### Gifs/Images
 
