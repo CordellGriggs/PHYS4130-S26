@@ -217,13 +217,15 @@ Where the slopes of these linear lines are our capacity dimension. Again, we see
 
 The 3D program, while not too logically different, has a few changes to its behavior and generation time. Since particles are not limited to only a 2D space to move, computation time significantly increased because they can randomly walk in three different directions. Additionally, there was some minor changes to the arrays and generation sphere. The generation sphere is now an actual sphere instead of just a circle, and considers an additional randomly chosen angle. Then, of course, the arrays were increased to three dimensions. Another major change is that the random function favors the poles of a sphere if you are not careful, which we can see in the following image and animation. A stickiness probability of 1 with 3000 particles was generated and is shown below:
 
+<img src="3D_DLA/last_frame1.png" width="400"> <img src="3D_DLA//animation_1.gif" width="600">
 
+*Fig. 10) 3D Aggregation that favors the poles.*
 
 ### 
 
 ## Languages, Libraries, Lessons Learned
 
-The main language was python and I used the libraries numpy, matplotlib, and os. I developed my skills with using object and classes in python and creating images and animations for aggregations. In particular, I learned how to use the os to more effectively store the .gifs and .pngs. I also learned how to do octrees, but they unfortunately did not end up working for this particular program (but they might be useful for my project over the summer!).
+The main language was python and I used the libraries numpy, matplotlib, and os. I developed my skills with using object and classes in python and creating images and animations for aggregations. In particular, I learned how to use the os to more effectively store the .gifs and .pngs. I also learned how to do octrees, but they unfortunately did not end up working for this particular program (but they might be useful for my project over the summer!). On that note, ignore the Code_Graveyard. It is filled with ghosts of past aggregate lives. 
 
 ## Timekeeping
 
