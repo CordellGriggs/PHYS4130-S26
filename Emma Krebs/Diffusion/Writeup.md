@@ -169,6 +169,25 @@ Now we know a little more about the program, let us look at our results!
 
 Capacity_Dimension.py tested five different stickiness probabilities for 5000 particles each. Their animation and final growth is shown below:
 
+<img src="Gifs_and_Images/5000Prob1.png" width="400"> <img src="Gifs_and_Images/Ani1.gif" width="400">
+
+*Fig. 4) Aggregation of p = 1*
+
+<img src="Gifs_and_Images/5000Prob0_5.png" width="400"> <img src="Gifs_and_Images/Ani0_5.gif" width="400">
+
+*Fig. 5) Aggregation of p = 0.5*
+
+<img src="Gifs_and_Images/5000Prob0_25.png" width="400"> <img src="Gifs_and_Images/Ani0_25.gif" width="400">
+
+*Fig. 5) Aggregation of p = 0.25*
+
+<img src="Gifs_and_Images/5000Prob0_1.png" width="400"> <img src="Gifs_and_Images/Ani0_1.gif" width="400">
+
+*Fig. 6) Aggregation of p = 0.1*
+
+<img src="Gifs_and_Images/5000Prob0_01.png" width="400"> <img src="Gifs_and_Images/Ani0_01.gif" width="400">
+
+*Fig. 7) Aggregation of p = 0.01*
 
 We can see that as our probability decreases, our branches get thicker and the particles tend to be condensed. We can measure the capacity dimension over radius such that we can see this relationship:
 
