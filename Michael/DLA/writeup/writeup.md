@@ -263,4 +263,11 @@ When we generate this for many more values of the stickyness, we get a plot that
   <p><em>Figure 5:</em> Effects of stickyness on the dimension for aggregates with N = 5000 points.</p>
 </div>
 
-We can clearly see that as S decreases, the dimension increases towards two. This is because the stickyness being smaller allows particles to meander around near the aggregate. When they finally stick, they form clumps instead of the thin branches procduced by immediatley sticking. 
+We can clearly see that as S decreases, the dimension increases towards two. This is because the stickyness being smaller allows particles to meander around near the aggregate. When they finally stick, they form clumps instead of the thin branches procduced by immediatley sticking. Furthermore, the dimension we are measuring seems to be in line with what we expect from the published dimension. 
+
+One last thing to look at is how dimension changes as the aggregate grows. 
+
+<div align="center">
+  <img src="Capacity_Dimension_Vs_Radius.png" alt=Capacity V Radius" width="600">
+  <p><em>Figure 5:</em> Effects of radius on the dimension for the aggregates </p>
+</div>
