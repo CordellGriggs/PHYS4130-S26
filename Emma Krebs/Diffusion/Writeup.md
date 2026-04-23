@@ -12,18 +12,23 @@ meta:
 
 Diffusion-limited aggregation (DLA) is the process where particles undergo a random walk, clustering together to form aggregations in the form of fractal branches. We define a random walk as a path that consists of the succession of random steps in some arbitrary mathematical space. For example, the main program this report describes is in a 2D space, so a particle could make a single random step along the positive and negative x- and y-axes. Doing this repeatedly gives us our random walk. An example of how a 3D and 2D aggregate looks like is shown below:
 
-![Image]()
-![Image]()
-*Fig. 1) Left, right, and middle Riemann sums for y= f(x) on [1, 8] with 5 subintervals.*
+<img src="Gifs_and_Images/Of7_p0001_15h.jpg" width="400"> <img src="Gifs_and_Images/DLA_3D.jpg" width="600">
 
-PUT TWO IMAGES HERE EMMA
+*Fig. 1) Left image is of a basic 2D DLA and the right is a 3D DLA.*
 
 It is important to note that DLA programs are not limited to the circular and spherical shapes above. They can adhere to straight lines, create brownian trees, and have many other shapes:
+
+<img src="Gifs_and_Images/Lungs_FLA.png" width="400"> <img src="Gifs_and_Images/Rec8_3kc2p.jpg" width="600">
+
+*Fig. 2) Miscellanous DLA aggregations of different shapes. The first is just a creative project from a user on X and the second is a Brownian Tree from the WIki*
+
 https://arxiv.org/html/2504.13400#:~:text=Initially%20proposed%20by%20Witten%20and,;%20jungblut%20;%20halsey%20;%20halsey2%20.
 
-PUT TWO MORE IMAGES
-
 DLAs are not solely a computational novelty either, but often appear in nature. For example, mineral deposits, fungi, lightning bolts, snowflakes, and even ants biting off wall paint all follow a form of diffusion-limited aggregation.
+
+<img src="Gifs_and_Images/Ants_Eat_Paint_YUM.jpg" width="400"> <img src="Gifs_and_Images/DLA_Cluster.jpeg" width="400">
+
+*Fig. 3) Left image is DLA pattern from ants eating paint and right image is grown from a copper sulfate solution in an electrodeposition cell.*
 
 https://www.deconbatch.com/2019/10/the-poor-mans-dla-diffusion-limited.html
 
