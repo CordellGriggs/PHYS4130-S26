@@ -617,3 +617,76 @@ https://github.com/user-attachments/assets/1160b4f4-3444-4217-8cfe-0fc7aed1dcab
   <figcaption><strong>Figure 12.</strong> DLA growth animation of 1 million particles demonstrating branching and fractal structure at larger scales.</figcaption>
 </figure> -->
 
+
+# Attribution
+
+## Software Libraries
+
+The following Python libraries were used:
+
+- NumPy (`numpy`)
+  Used for numerical operations including array/matrix representation of the simulation grid, random sampling (`np.random`), vectorized computations, histogram generation, and linear regression (`np.polyfit`) for fractal dimension estimation.
+
+- Matplotlib (`matplotlib`)
+  Used for visualization of the DLA cluster, including static plots and real-time animation. Specifically:
+  - `matplotlib.pyplot` for plotting and figure management  
+  - `matplotlib.animation.FuncAnimation` for animating cluster growth  
+  - `matplotlib.colors.LogNorm` for logarithmic color scaling  
+  - Colormap utilities for visual encoding of particle deposition order  
+
+- IPython (`IPython.display.HTML`)
+  Used for rendering animations within a Jupyter Notebook environment.
+
+- Python Standard Library (`random`)  
+  Used for stochastic processes, including particle motion (random walks), probabilistic sticking behavior, and directional sampling.
+
+- Python Standard Library (`time`)  
+  Used for measuring execution time of the simulation and performance profiling.
+
+---
+
+## External Resources
+
+The following external resources were referenced during development:
+
+- “Turbo: An Improved Rainbow Colormap for Visualization.”  
+  Helped guide the selection of a perceptually uniform colormap for improved visualization of particle age and density.  
+  Available: https://research.google/blog/turbo-an-improved-rainbow-colormap-for-visualization/ 
+
+- “Python Classes.”  
+  Referenced for syntax and structure of Python class definitions and object-oriented programming patterns.
+  Available: https://www.w3schools.com/python/python_classes.asp  https://www.youtube.com/watch?v=u4Ryk0YuW6A
+
+- "Colormap Normalization.”  
+  Used to implement logarithmic normalization for improved contrast in cluster visualization.  
+  Available: https://matplotlib.org/stable/users/explain/colors/colormapnorms.html 
+
+- “FuncAnimation API.”  
+  Referenced for constructing real-time animation of the aggregation process.  
+  Available: https://matplotlib.org/stable/api/_as_gen/matplotlib.animation.FuncAnimation.html 
+
+- “pyplot.subplots API.”  
+  Used for figure and axis creation in both static and animated plots.  
+  Available: https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html  
+
+- "Box-Counting Method" (Wikipedia),  
+  Referenced for implementing the box-counting method to estimate the fractal (capacity) dimension of the cluster.  
+  Available: https://en.wikipedia.org/wiki/Box_counting
+
+- "Fractal Analysis and Box-Counting Techniques."
+  Provided reference implementations and conceptual guidance for fractal analysis and box-counting techniques.  
+  Available: https://github.com/wanglab-georgetown/fractal 
+
+- “NumPy Array Shape.”  
+  Referenced for understanding array dimensions and indexing.  
+  Available: https://www.w3schools.com/python/numpy/numpy_array_shape.asp  
+
+- “numpy.polyfit Documentation.”  
+  Used for performing linear regression on log-log data for fractal dimension estimation.  
+  Available: https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html  
+
+- “numpy.where Documentation.”  
+  Used for identifying active regions of the simulation grid.  
+  Available: https://numpy.org/doc/stable/reference/generated/numpy.where.html  
+
+---
