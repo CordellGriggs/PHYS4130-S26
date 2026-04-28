@@ -12,12 +12,21 @@ meta:
 
 Ordinary Differential Equations (ODEs) are differential equations that depend on one independent variable. ODEs can relate how systems can change over time or space, making them an extremely pervasive tool of mathematics for understanding how something develops. These functions can be solved numerically through integrators given an initial state. Thus, it is important to understand what these integrators are doing to our system and how they might accumulate error. An accurate ODE solver will be one that conserves the energy of the system, but what does that mean in context of our problem? We will start by considering harmonic oscillation, which also happens to be the main system we will investigate throughout this report. The function is given as:
 
-$$m\text{ }\dfrac{d^2y}{d^2t} = -ky$$
+$$m\text{ }\dfrac{d^2y}{dt^2} = -ky$$
 
 where its associated equation of energy is
 
 $$E = \dfrac{1}{2}\text{ } m \text{ }(\text{ } \dfrac{dy}{dt} \text{ })^2 + \dfrac{1}{2}ky^2$$
 
+The important part of this energy definition is that any solution to our ODE will automatically conserve the energy function. Let us see this by taking the derivative:
+
+$$\dfrac{dE}{dt} = m\text{ } (\text{ }\dfrac{dy}{dt}\text{ }) \text{ } (\text{ }\dfrac{d^2y}{dt^2}\text{ }) + ky(\text{ }\dfrac{dy}{dt}\text{ })$$
+
+and if we plug in our previous equality we find that
+
+$$\dfrac{dE}{dt} = -ky\text{ } (\text{ }\dfrac{dy}{dt}\text{ }) + ky(\text{ }\dfrac{dy}{dt}\text{ }) = 0$$
+
+Therefore, our energy is conserved. A good ODE solver produces solutions that conserve energy, and unfortunately very few do. Throughout this report we will investigate three ODE solvers, only one of which will preserve energy. We will then analysis the error for these solvers to show why energy conservation is important for accuracy over long spans of time/space.
 
 ### What is Harmonic Oscillation and What Does it Look Like?
 
