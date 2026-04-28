@@ -172,13 +172,13 @@ and we find
 
 Again, we see the relative error oscillate between 0 and a positive value indicating that, even though there is an error, it is manageable and still allows conservation of energy. Odeint is obviously once again collecting relative error at an alarming rate and, although this graph doesn't extend past 25 seconds, RK45 is also steadily collecting error while oscillating at that error value. 
 
-Finally, we will compare the energy drift over time for different step values. This will be the biggest indicator for stability and conservation over time.
+Finally, we will compare the energy drift over time for different step values. This will be the biggest indicator for stability and conservation for a method. 
 
 <img src="Images_ODE/EnergyDriftVSTimeSymp.png" width="325"> <img src="Images_ODE/EnergyDriftVSTimeOdeint.png" width="325"> <img src="Images_ODE/EnergyDriftVSTimeRk45.png" width="325">
 
 *Fig 5. Energy Drift vs Time for the three methods. Starting from the left, we have Symplectic, Odeint, and RK45.*
 
-We see once again that even at low N the Symplectic method oscillates around 0, and for higher N it significantly decreases its oscillation range. 
+We see once again that even at low N the Symplectic method oscillates around 0, and for higher N it significantly decreases its oscillation range. Interestingly enough, the Symplectic is actually much worse than Odeint and RK45 for N = 100 if we look at the y-axis. Its range has a rough energy drift maximum of 2 while the others are on the order of $$10^{-3}$$ and $$10^{-4}$$. Although we know that Symplectic is overall the better choice for stability of harmonic oscillators, we see that the other two functions would initially appear as the better choice for minimizing error. Therefore, it is always important to decide what matters more to your program: stability over long time scales, energy conservation, and/or the number of steps it has to calculate to get a sufficiently small error.   
 
 ## Extensions
 
