@@ -464,9 +464,11 @@ From a computational perspective, this instability is not an artifact of the imp
 - Visual interpretation becomes dominated by a few extreme features.
 
 Skip through the animation, the branching is evident towards the end of the animation:
+
+https://github.com/user-attachments/assets/f7b75dd1-0697-4e97-88f0-9911920ad489
 <figure>
-  <video src="./Videos/dla_growth_50000.mp4" controls width="600"></video>
-  <figcaption><strong>Figure 1.</strong> DLA growth animation of ~50,000 particles demonstrating branching.</figcaption>
+  <!-- <video src="./Videos/dla_growth_50000.mp4" controls width="600"></video> -->
+  <figcaption><strong>Figure 2.</strong> DLA growth animation of ~50,000 particles demonstrating branching.</figcaption>
 </figure>
 
 These observations motivated the introduction of a biasing mechanism in subsequent simulations, with the goal of redistributing particle influx and promoting more uniform growth. The effectiveness and implications of this modification are explored in the following sections.
@@ -477,13 +479,22 @@ These observations motivated the introduction of a biasing mechanism in subseque
 
 The stickiness parameter $(S)$ plays a crucial role in determining the morphology of the resulting DLA clusters. By controlling the probability that a particle will adhere to the cluster upon contact, varying $S$ allows us to explore a spectrum of growth behaviors, from highly branched and tenuous structures at high stickiness to denser and more compact aggregates at low stickiness. Lower stickiness values introduce additional stochasticity in the attachment process, which can lead to more isotropic growth and reduced branching. Conversely, higher stickiness values promote rapid attachment at the first point of contact, reinforcing the formation of dominant branches. The following animations illustrate the effect of varying the stickiness parameter on cluster morphology for a simulation with 10,000 particles:
 
+https://github.com/user-attachments/assets/35201d0a-f98b-4f48-b76a-49265e8c8767
+
+https://github.com/user-attachments/assets/8c029f46-1115-488c-b6f2-12b7f007adae
+
+https://github.com/user-attachments/assets/e6be11be-8c69-498b-a110-3b913b96138a
+
+https://github.com/user-attachments/assets/a413a01b-0ba9-482d-8688-150ee5832be3
+
+https://github.com/user-attachments/assets/458f3488-6276-48c1-9b48-37fce99b8c22
 <figure>
-  <video src="./Videos/s_005.mp4" controls width="400"></video>
+  <!-- <video src="./Videos/s_005.mp4" controls width="400"></video>
   <video src="./Videos/s_015.mp4" controls width="400"></video>
   <video src="./Videos/s_050.mp4" controls width="400"></video>
   <video src="./Videos/s_085.mp4" controls width="400"></video>
-  <video src="./Videos/s_095.mp4" controls width="400"></video>
-  <figcaption><strong>Figure 2.</strong> DLA growth animation with various stickiness parameters, demonstrating the effect on cluster morphology. In order: S=0.05, 0.15, 0.50, 0.85, 0.95.</figcaption>
+  <video src="./Videos/s_095.mp4" controls width="400"></video> -->
+  <figcaption><strong>Figure 3.</strong> DLA growth animation with various stickiness parameters, demonstrating the effect on cluster morphology. In order: S=0.05, 0.15, 0.50, 0.85, 0.95.</figcaption>
 </figure>
 
 ## Capacity Dimension
@@ -509,17 +520,22 @@ Witten and Sander reported a fractal dimension of $D \approx 1.65$ for two-dimen
 
 The capacity dimension captures how the number of occupied boxes scales with box size and provides a quantitative measure of the cluster’s geometric complexity. The expected capacity dimension for a DLA simulation is approximately 1.65, which reflects the highly branched and tenuous nature of the aggregates formed under diffusion-limited conditions.
 
+
+https://github.com/user-attachments/assets/5afd97a5-5c51-402b-8ffc-149345a873c2
 <figure>
-  <video src="./Videos/capacity_dimension.mp4" controls width="400"></video>
+  <!-- <video src="./Videos/capacity_dimension.mp4" controls width="400"></video> -->
   <img src="./Plots/capacity_dimension.png" controls width="400"></img>
-  <figcaption><strong>Figure 3.</strong> Capacity dimension of the DLA cluster calculated using box-counting methods (stickiness parameter S = 0.5).</figcaption>
+  <figcaption><strong>Figure 4.</strong> Capacity dimension of the DLA cluster calculated using box-counting methods (stickiness parameter S = 0.5).</figcaption>
 </figure>
 
 The capacity dimension calculated from this simulation is **$D = 1.551$**, which was fairly close to the expected result of $D \approx 1.65$. The number of particles in the cluster was only 10,000, which is small enough to produce noticeable differences. Additionally, the biasing mechanism implemented to promote isotropic growth may have influenced the morphology of the cluster and thus its fractal properties. Further simulations with larger particle counts and varying stickiness parameters are needed to fully explore these effects and confirm the relationship between stickiness and capacity dimension. For example, the following simulation shows the capacity dimension for a 64,000 particle cluster with a low stickiness parameter of $S = 0.1$. The capacity dimension for this cluster was calculated to be $D = 1.$, which is much closer to the expected value of $D \approx 1.65$.
+
+
+https://github.com/user-attachments/assets/28e5195d-4f73-4a0c-ab7d-b6c01e574737
 <figure>
-  <video src="./Videos/W&S_replicate.mp4" controls width="400"></video>
+  <!-- <video src="./Videos/W&S_replicate.mp4" controls width="400"></video> -->
   <img src="./Plots/W&S_replicate.png" controls width="400"></img>
-  <figcaption><strong>Figure 4.</strong> Capacity dimension (D = 1.659) for a 64,000 particle DLA cluster with low stickiness parameter S = 0.1.</figcaption>
+  <figcaption><strong>Figure 5.</strong> Capacity dimension (D = 1.659) for a 64,000 particle DLA cluster with low stickiness parameter S = 0.1.</figcaption>
 </figure>
 
 Side note: This simulation finished in 25 minutes. The simulation is able to run faster with lower stickiness values. 
@@ -531,15 +547,20 @@ As discussed earlier, the stickiness parameter $(S)$ controls the probability th
 
 To quantify this effect, the capacity dimension was computed for clusters generated under varying values of $S$. The results show the relationship between stickiness and fractal dimension, with lower stickiness values yielding higher capacity dimensions (closer to the expected $D \approx 1.65$) and higher stickiness values resulting in lower capacity dimensions due to increased branching and reduced density.
 
+
+https://github.com/user-attachments/assets/e059ee84-dde2-48a4-ad0e-b418a3e0dbd2
 <figure>
-  <video src="./Videos/CD_low_S.mp4" controls width="400"></video>
+  <!-- <video src="./Videos/CD_low_S.mp4" controls width="400"></video> -->
   <img src="./Plots/CD_low_S.png" controls width="400"></img>
-  <figcaption><strong>Figure 5.</strong> Capacity dimension (D = 1.618) for a 16,000 particle DLA cluster with low stickiness parameter S = 0.05.</figcaption>
+  <figcaption><strong>Figure 6.</strong> Capacity dimension (D = 1.618) for a 16,000 particle DLA cluster with low stickiness parameter S = 0.05.</figcaption>
 </figure>
+
+
+https://github.com/user-attachments/assets/40023491-f7ff-41c6-bc5a-d81efc019e04
 <figure>
-  <video src="./Videos/CD_high_S.mp4" controls width="400"></video>
+  <!-- <video src="./Videos/CD_high_S.mp4" controls width="400"></video> -->
   <img src="./Plots/CD_high_S.png" controls width="400"></img>
-  <figcaption><strong>Figure 6.</strong> Capacity dimension (D = 1.539) for a 16,000 particle DLA cluster with high stickiness parameter S = 0.95.</figcaption>
+  <figcaption><strong>Figure 7.</strong> Capacity dimension (D = 1.539) for a 16,000 particle DLA cluster with high stickiness parameter S = 0.95.</figcaption>
 </figure>
 
 The results indicate a weak inverse correlation between stickiness and capacity dimension within the parameter range studied. Higher stickiness values produce more branched clusters with reduced effective dimensionality, while lower stickiness yields comparatively denser aggregates.
@@ -552,16 +573,20 @@ The capacity dimension can also be analyzed as a function of radial distance fro
 D(r) = \frac{\mathrm{d} \log M(r)}{\mathrm{d} \log r}
 ```
 
+https://github.com/user-attachments/assets/fc1ce64c-8ab3-46a5-af89-e911acd91f27
 <figure>
-  <video src="./Videos/CD_radius_1.mp4" controls width="400"></video>
+  <!-- <video src="./Videos/CD_radius_1.mp4" controls width="400"></video> -->
   <img src="./Plots/CD_vs_radius_1.png" controls width="400"></img>
-  <figcaption><strong>Figure 7.</strong> Capacity dimension as a function of radius for a 16,000 particle DLA cluster with high stickiness parameter S = 0.20.</figcaption>
+  <figcaption><strong>Figure 8.</strong> Capacity dimension as a function of radius for a 16,000 particle DLA cluster with high stickiness parameter S = 0.20.</figcaption>
 </figure>
+
+https://github.com/user-attachments/assets/430d8374-bca7-4f87-897d-e865dde7767a
 <figure>
-  <video src="./Videos/CD_radius_2.mp4" controls width="400"></video>
+  <!-- <video src="./Videos/CD_radius_2.mp4" controls width="400"></video> -->
   <img src="./Plots/CD_vs_radius_2.png" controls width="400"></img>
-  <figcaption><strong>Figure 8.</strong> Capacity dimension as a function of radius for a 16,000 particle DLA cluster with high stickiness parameter S = 0.90.</figcaption>
+  <figcaption><strong>Figure 9.</strong> Capacity dimension as a function of radius for a 16,000 particle DLA cluster with high stickiness parameter S = 0.90.</figcaption>
 </figure>
+
 
 The results observed in the two “capacity dimension as a function of radius” graphs are consistent with the structure of the function `CD_vs_radius()`. The initial sharp increase in $D(r)$ occurs because, at small radii, the cumulative particle count $(M(r))$ grows rapidly in a discrete and highly sensitive regime. In this region, logarithmic differentiation amplifies small changes in particle number, producing large fluctuations in the estimated dimension.
 
@@ -573,12 +598,95 @@ As the radius approaches its maximum value, the estimated dimension decreases to
 To further explore the behavior of DLA clusters at larger scales, an animation was generated for a simulation with 1 million particles. This extension provides insights into how the branching instability and fractal properties evolve as the cluster size increases.
 ### Limit of Local Computing Resources
 Below is the animation limit of a common laptop. Left running overnight, for about 12 hours, the simulation was able to generate a cluster with a little over 300,000 particles. 
+
+https://github.com/user-attachments/assets/fbd818a5-9b54-4934-85d6-c87dec6958b3
 <figure>
-  <video src="./Videos/3e5.mp4" controls width="600"></video>
-  <figcaption><strong>Figure 9.</strong> DLA growth animation of 300,000 particles, the reasonable limit for a common laptop.</figcaption>
-</figure>
-<figure>
-  <video src="./Videos/1e6.mp4" controls width="600"></video>
-  <figcaption><strong>Figure 10.</strong> DLA growth animation of 1 million particles demonstrating branching and fractal structure at larger scales.</figcaption>
+  <figcaption><strong>Figure 10.</strong> DLA growth animation of 300,000 particles, the reasonable limit for a common laptop.</figcaption>
 </figure>
 
+With higher stickiness value, the cluster is harder to simulate because the radius grows faster. It reached about 100,000 particles overnight.
+
+https://github.com/user-attachments/assets/1160b4f4-3444-4217-8cfe-0fc7aed1dcab
+<figure>
+  <figcaption><strong>Figure 11.</strong> DLA growth animation of 100,000 particles, the reasonable limit for a common laptop.</figcaption>
+</figure>
+
+
+<!-- <figure>
+  <video src="./Videos/1e6.mp4" controls width="600"></video>
+  <figcaption><strong>Figure 12.</strong> DLA growth animation of 1 million particles demonstrating branching and fractal structure at larger scales.</figcaption>
+</figure> -->
+
+
+# Attribution
+
+## Software Libraries
+
+The following Python libraries were used:
+
+- NumPy (`numpy`)
+  Used for numerical operations including array/matrix representation of the simulation grid, random sampling (`np.random`), vectorized computations, histogram generation, and linear regression (`np.polyfit`) for fractal dimension estimation.
+
+- Matplotlib (`matplotlib`)
+  Used for visualization of the DLA cluster, including static plots and real-time animation. Specifically:
+  - `matplotlib.pyplot` for plotting and figure management  
+  - `matplotlib.animation.FuncAnimation` for animating cluster growth  
+  - `matplotlib.colors.LogNorm` for logarithmic color scaling  
+  - Colormap utilities for visual encoding of particle deposition order  
+
+- IPython (`IPython.display.HTML`)
+  Used for rendering animations within a Jupyter Notebook environment.
+
+- Python Standard Library (`random`)  
+  Used for stochastic processes, including particle motion (random walks), probabilistic sticking behavior, and directional sampling.
+
+- Python Standard Library (`time`)  
+  Used for measuring execution time of the simulation and performance profiling.
+
+---
+
+## External Resources
+
+The following external resources were referenced during development:
+
+- “Turbo: An Improved Rainbow Colormap for Visualization.”  
+  Helped guide the selection of a perceptually uniform colormap for improved visualization of particle age and density.  
+  Available: https://research.google/blog/turbo-an-improved-rainbow-colormap-for-visualization/ 
+
+- “Python Classes.”  
+  Referenced for syntax and structure of Python class definitions and object-oriented programming patterns.
+  Available: https://www.w3schools.com/python/python_classes.asp  https://www.youtube.com/watch?v=u4Ryk0YuW6A
+
+- "Colormap Normalization.”  
+  Used to implement logarithmic normalization for improved contrast in cluster visualization.  
+  Available: https://matplotlib.org/stable/users/explain/colors/colormapnorms.html 
+
+- “FuncAnimation API.”  
+  Referenced for constructing real-time animation of the aggregation process.  
+  Available: https://matplotlib.org/stable/api/_as_gen/matplotlib.animation.FuncAnimation.html 
+
+- “pyplot.subplots API.”  
+  Used for figure and axis creation in both static and animated plots.  
+  Available: https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html  
+
+- "Box-Counting Method" (Wikipedia),  
+  Referenced for implementing the box-counting method to estimate the fractal (capacity) dimension of the cluster.  
+  Available: https://en.wikipedia.org/wiki/Box_counting
+
+- "Fractal Analysis and Box-Counting Techniques."
+  Provided reference implementations and conceptual guidance for fractal analysis and box-counting techniques.  
+  Available: https://github.com/wanglab-georgetown/fractal 
+
+- “NumPy Array Shape.”  
+  Referenced for understanding array dimensions and indexing.  
+  Available: https://www.w3schools.com/python/numpy/numpy_array_shape.asp  
+
+- “numpy.polyfit Documentation.”  
+  Used for performing linear regression on log-log data for fractal dimension estimation.  
+  Available: https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html  
+
+- “numpy.where Documentation.”  
+  Used for identifying active regions of the simulation grid.  
+  Available: https://numpy.org/doc/stable/reference/generated/numpy.where.html  
+
+---
