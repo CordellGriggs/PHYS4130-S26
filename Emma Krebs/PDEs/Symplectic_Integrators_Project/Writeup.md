@@ -168,7 +168,17 @@ and we find
 
 <img src="Images_ODE/RelativeErrorVSTime.png" width="800"> 
 
+*Fig 4. Relative error vs time graph for the three integration methods. This graph also spans over 150 seconds, but is limited to 25 seconds.  
+
 Again, we see the relative error oscillate between 0 and a positive value indicating that, even though there is an error, it is manageable and still allows conservation of energy. Odeint is obviously once again collecting relative error at an alarming rate and, although this graph doesn't extend past 25 seconds, RK45 is also steadily collecting error while oscillating at that error value. 
+
+Finally, we will compare the energy drift over time for different step values. This will be the biggest indicator for stability and conservation over time.
+
+<img src="Images_ODE/EnergyDriftVSTimeSymp.png" width="325"> <img src="Images_ODE/EnergyDriftVSTimeOdeint.png" width="325"> <img src="Images_ODE/EnergyDriftVSTimeRk45.png" width="325">
+
+*Fig 5. Energy Drift vs Time for the three methods. Starting from the left, we have Symplectic, Odeint, and RK45.*
+
+We see once again that even at low N the Symplectic method oscillates around 0, and for higher N it significantly decreases its oscillation range. 
 
 ## Extensions
 
@@ -178,9 +188,7 @@ Again, we see the relative error oscillate between 0 and a positive value indica
 
 ## Languages, Libraries, Lessons Learned
 
-- Scipy library is a big one
-- Energy conservation in programs
-- More about 
+The main library I learned and used in this project was the Scipy library. I found out about the different integration methods you can call from this library. Additonally, in the future I will have to consider the error accumulated from the method I use for simulation projects and whether the conservation of energy in the system would be an issue.
 
 ## Timekeeping
 
