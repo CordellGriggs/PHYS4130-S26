@@ -89,3 +89,7 @@ m100  92235 -.9473
 m200  1001   2 
       8016   1
 ```
+
+### 4/30
+
+See what happens when I add more layers of decreasing thickness with the ith layer from the center.
