@@ -93,3 +93,15 @@ m200  1001   2
 ### 4/30
 
 See what happens when I add more layers of decreasing thickness with the ith layer from the center.
+
+I changed the Uranium mix to be low-enriched 80/20
+```
+m100  92235 -.8000                              
+      92238 -.2000
+```
+Now, $k_{eff}$ is 1.03 rather than 1.06.
+
+I've been messing around with adding tops to the cylinders or leaving them open. I've found it seems more ideal to leave them open, so I can make them longer without having to worry about using more mass. 
+
+I have been working with more layers but haven't been able to get a good $k_{eff}$ with more layers yet.
+
